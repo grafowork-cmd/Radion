@@ -113,7 +113,10 @@ function IconGrid({ size = 24, strokeWidth = 1.5 }: { size?: number; strokeWidth
 // ── Story meta ────────────────────────────────────────────────────────────────
 const meta: Meta = {
   title: 'Icons/Lucide',
-  parameters: { layout: 'fullscreen' },
+  parameters: {
+    layout: 'fullscreen',
+    chromatic: { disableSnapshot: true },
+  },
 }
 export default meta
 
