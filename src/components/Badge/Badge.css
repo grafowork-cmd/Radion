@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   BADGE — from Figma node 3147:4028
+
+   Axes: type × style × shape × size
+   Types:  default / success / warning / error / information / disabled
+   Styles: filled / outlined
+   Shapes: rounded (size-based radius) / pill (999px)
+   Sizes:  small(20px) / medium(24px) / large(28px) / x-large(36px)
+   States: default / hover (interactive badges only)
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Base ───────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  /* reset button styles */
+  background: none;
+  cursor: default;
+  padding: 0;
+  text-decoration: none;
+}
+
+.badge--interactive {
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+/* ── Sizes ──────────────────────────────────────────────────── */
+.badge--size-small {
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.badge--size-medium {
+  height: 24px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.badge--size-large {
+  height: 28px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.badge--size-x-large {
+  height: 36px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+/* Pill overrides size-based radius */
+.badge--pill { border-radius: 999px; }
+
+/* ── Icon wrapper ───────────────────────────────────────────── */
+.badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.badge--size-small  .badge__icon { width: 12px; height: 12px; }
+.badge--size-medium .badge__icon,
+.badge--size-large  .badge__icon,
+.badge--size-x-large .badge__icon { width: 16px; height: 16px; }
+
+/* ── Counter pill ───────────────────────────────────────────── */
+.badge__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+.badge--size-small   .badge__count { width: 34px; }
+.badge--size-medium  .badge__count { width: 34px; }
+.badge--size-large   .badge__count { width: 36px; }
+.badge--size-x-large .badge__count { width: 40px; font-size: 14px; line-height: 20px; }
+
+/* ── Filled — color tokens ──────────────────────────────────── */
+
+/* Default */
+.badge--style-filled.badge--type-default {
+  background: rgb(243, 244, 246);
+  color: rgb(77, 87, 97);
+}
+.badge--style-filled.badge--type-default .badge__count {
+  background: rgb(77, 87, 97);
+  color: white;
+}
+
+/* Success */
+.badge--style-filled.badge--type-success {
+  background: rgb(242, 247, 242);
+  color: rgb(0, 146, 49);
+}
+.badge--style-filled.badge--type-success .badge__count {
+  background: rgb(0, 146, 49);
+  color: white;
+}
+
+/* Warning */
+.badge--style-filled.badge--type-warning {
+  background: rgb(255, 250, 229);
+  color: rgb(232, 116, 0);
+}
+.badge--style-filled.badge--type-warning .badge__count {
+  background: rgb(232, 116, 0);
+  color: white;
+}
+
+/* Error */
+.badge--style-filled.badge--type-error {
+  background: rgb(253, 242, 242);
+  color: rgb(218, 0, 0);
+}
+.badge--style-filled.badge--type-error .badge__count {
+  background: rgb(218, 0, 0);
+  color: white;
+}
+
+/* Information */
+.badge--style-filled.badge--type-information {
+  background: rgb(229, 240, 255);
+  color: rgb(0, 82, 204);
+}
+.badge--style-filled.badge--type-information .badge__count {
+  background: rgb(0, 102, 255);
+  color: white;
+}
+
+/* Disabled */
+.badge--style-filled.badge--type-disabled {
+  background: rgb(229, 231, 235);
+  color: rgb(157, 163, 174);
+}
+.badge--style-filled.badge--type-disabled .badge__count {
+  background: white;
+  color: rgb(157, 163, 174);
+}
+
+/* ── Outlined — color tokens ────────────────────────────────── */
+
+/* Default */
+.badge--style-outlined.badge--type-default {
+  border-color: rgb(157, 164, 174);
+  color: rgb(77, 87, 97);
+}
+.badge--style-outlined.badge--type-default .badge__count {
+  background: rgb(77, 87, 97);
+  color: white;
+}
+
+/* Success */
+.badge--style-outlined.badge--type-success {
+  border-color: rgb(0, 146, 49);
+  color: rgb(0, 146, 49);
+}
+.badge--style-outlined.badge--type-success .badge__count {
+  background: rgb(0, 146, 49);
+  color: white;
+}
+
+/* Warning */
+.badge--style-outlined.badge--type-warning {
+  border-color: rgb(232, 116, 0);
+  color: rgb(232, 116, 0);
+}
+.badge--style-outlined.badge--type-warning .badge__count {
+  background: rgb(232, 116, 0);
+  color: white;
+}
+
+/* Error */
+.badge--style-outlined.badge--type-error {
+  border-color: rgb(218, 0, 0);
+  color: rgb(218, 0, 0);
+}
+.badge--style-outlined.badge--type-error .badge__count {
+  background: rgb(218, 0, 0);
+  color: white;
+}
+
+/* Information */
+.badge--style-outlined.badge--type-information {
+  border-color: rgb(0, 102, 255);
+  color: rgb(0, 82, 204);
+}
+.badge--style-outlined.badge--type-information .badge__count {
+  background: rgb(0, 102, 255);
+  color: white;
+}
+
+/* Disabled */
+.badge--style-outlined.badge--type-disabled {
+  border-color: rgb(157, 164, 174);
+  color: rgb(157, 163, 174);
+}
+.badge--style-outlined.badge--type-disabled .badge__count {
+  background: white;
+  color: rgb(157, 163, 174);
+}
+
+/* ── Hover (interactive badges, non-disabled) ───────────────── */
+.badge--interactive:not(.badge--type-disabled):hover {
+  background: rgb(77, 87, 97);
+  border-color: rgb(77, 87, 97);
+  color: white;
+}
+
+.badge--interactive:not(.badge--type-disabled):hover .badge__count {
+  background: white;
+  color: rgb(77, 87, 97);
+}

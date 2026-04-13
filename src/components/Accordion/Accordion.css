@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   ACCORDION — from Figma node 8369:4560
+
+   Structure:
+     .acd                      wrapper
+       .acd__header            <button> — always visible
+         .acd__icon            left icon slot (optional)
+           .acd__icon-placeholder  default 16×16 blue square
+         .acd__left            title + badge column
+           .acd__title         header text
+           .acd__badge         badge pill
+             .acd__badge-label   default "Badge Label" text
+         .acd__chevron         ChevronDown (rotates when open)
+       .acd__body              revealed when open
+         .acd__divider         1px separator
+         .acd__body-content    padding wrapper
+           .acd__body-text     default body <p>
+
+   Modifiers on .acd__header:
+     --outlined | --filled | --rounded
+     --open      (expanded, no disabled)
+     --disabled
+     --focused   (forced focus ring for Storybook)
+   ───────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════
+   WRAPPER
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER  (shared base)
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+  outline: none;
+  transition: background 0.15s;
+}
+
+.acd__header:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Outlined ─────────────────────────────────────────────── */
+
+.acd__header--outlined {
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+}
+
+/* Expanded: drop bottom radius + bottom border so body attaches */
+.acd__header--outlined.acd__header--open {
+  background: white;
+  border-bottom-color: transparent;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.acd__header--outlined:hover:not(:disabled),
+.acd__header--outlined.acd__header--focused:not(.acd__header--disabled) {
+  background: rgb(243, 244, 246);
+}
+
+.acd__header--outlined.acd__header--disabled {
+  background: rgb(229, 231, 235);
+  border-color: rgb(210, 214, 219);
+  border-radius: 8px;
+}
+
+/* ── Filled ───────────────────────────────────────────────── */
+
+.acd__header--filled {
+  background: rgb(249, 250, 251);
+  border: none;
+  border-radius: 8px;
+}
+
+.acd__header--filled.acd__header--open {
+  background: rgb(249, 250, 251);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.acd__header--filled:hover:not(:disabled),
+.acd__header--filled.acd__header--focused:not(.acd__header--disabled) {
+  background: rgb(243, 244, 246);
+}
+
+.acd__header--filled.acd__header--disabled {
+  background: rgb(229, 231, 235);
+  border-radius: 8px;
+}
+
+/* ── Rounded ──────────────────────────────────────────────── */
+
+.acd__header--rounded {
+  background: rgb(249, 250, 251);
+  border: none;
+  border-radius: 12px;
+}
+
+.acd__header--rounded.acd__header--open {
+  background: rgb(249, 250, 251);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.acd__header--rounded:hover:not(:disabled),
+.acd__header--rounded.acd__header--focused:not(.acd__header--disabled) {
+  background: rgb(243, 244, 246);
+}
+
+.acd__header--rounded.acd__header--disabled {
+  background: rgb(229, 231, 235);
+  border-radius: 12px;
+}
+
+/* ── Focus ring ───────────────────────────────────────────── */
+
+.acd__header:focus-visible,
+.acd__header--focused:not(.acd__header--disabled) {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(0, 102, 255);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LEFT ICON SLOT
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+/* Default blue placeholder square */
+.acd__icon-placeholder {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: rgb(223, 240, 255);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TITLE + BADGE  (.acd__left)
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd__left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Title */
+.acd__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acd__title--disabled {
+  color: rgb(157, 164, 174);
+}
+
+/* Badge pill */
+.acd__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgb(229, 240, 255);
+  flex-shrink: 0;
+}
+
+.acd__badge--disabled {
+  opacity: 0.6;
+}
+
+.acd__badge-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: rgb(0, 82, 204);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHEVRON
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd__chevron {
+  flex-shrink: 0;
+  color: rgb(77, 87, 97);
+  transition: transform 0.2s ease, color 0.15s;
+}
+
+.acd__chevron--open {
+  transform: rotate(180deg);
+}
+
+.acd__header--disabled .acd__chevron {
+  color: rgb(157, 164, 174);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BODY
+   ═══════════════════════════════════════════════════════════════ */
+
+.acd__body {
+  box-sizing: border-box;
+}
+
+/* ── Outlined body ──────────────────────────────────────────── */
+
+.acd__body--outlined {
+  border: 1px solid rgb(210, 214, 219);
+  border-top: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: white;
+}
+
+/* ── Filled body ────────────────────────────────────────────── */
+
+.acd__body--filled {
+  border: none;
+  background: rgb(249, 250, 251);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* ── Rounded body ───────────────────────────────────────────── */
+
+.acd__body--rounded {
+  border: none;
+  background: rgb(249, 250, 251);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+
+.acd__divider {
+  height: 1px;
+  background: rgb(229, 231, 235);
+  margin: 0 12px;
+}
+
+/* ── Body content ───────────────────────────────────────────── */
+
+.acd__body-content {
+  padding: 16px 12px;
+}
+
+.acd__body-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgb(56, 66, 80);
+}

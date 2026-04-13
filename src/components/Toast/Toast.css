@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   TOAST — from Figma nodes 1842:21411 / 2168:18419
+
+   Layout: [16px icon] [flex-1 content] [16px dismiss]
+   States: default / success / warning / error
+   Features: description, actions (link + primary + secondary), dismissable
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Root ───────────────────────────────────────────────────── */
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-left: 4px solid;
+  box-shadow: 0 15px 40px 0 rgba(119, 119, 119, 0.2);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 621px;
+}
+
+/* ── State colors ───────────────────────────────────────────── */
+.toast--default {
+  background: rgb(229, 240, 255);
+  border-color: rgb(0, 102, 255);
+  color: rgb(0, 102, 255);
+}
+
+.toast--success {
+  background: rgb(242, 247, 242);
+  border-color: rgb(0, 146, 49);
+  color: rgb(0, 146, 49);
+}
+
+.toast--warning {
+  background: rgb(255, 250, 229);
+  border-color: rgb(232, 116, 0);
+  color: rgb(232, 116, 0);
+}
+
+.toast--error {
+  background: rgb(253, 242, 242);
+  border-color: rgb(218, 0, 0);
+  color: rgb(218, 0, 0);
+}
+
+/* ── State icon ─────────────────────────────────────────────── */
+.toast__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  /* inherits color from .toast--{state} */
+}
+
+/* ── Content area ───────────────────────────────────────────── */
+.toast__content {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: stretch;
+}
+
+/* ── Text block ─────────────────────────────────────────────── */
+.toast__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: rgb(77, 87, 97);
+}
+
+.toast__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 0;
+}
+
+.toast__description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+/* ── Actions row ────────────────────────────────────────────── */
+.toast__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Link-style action */
+.toast__action-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(0, 102, 255);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.toast__action-link:hover {
+  text-decoration: underline;
+}
+
+/* Primary outlined button */
+.toast__action-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 8px 16px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(56, 66, 80);
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.12s;
+}
+
+.toast__action-primary:hover {
+  background: rgb(249, 250, 251);
+}
+
+/* Secondary text button */
+.toast__action-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(0, 102, 255);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.toast__action-secondary:hover {
+  text-decoration: underline;
+}
+
+/* ── Dismiss button ─────────────────────────────────────────── */
+.toast__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgb(77, 87, 97);
+  border-radius: 4px;
+  transition: color 0.12s;
+}
+
+.toast__dismiss:hover {
+  color: rgb(17, 25, 39);
+}

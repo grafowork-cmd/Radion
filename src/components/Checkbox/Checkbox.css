@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   CHECKBOX — from Figma node 1769:4823
+
+   Structure:
+     .cbx-group
+       label.cbx__field
+         input.cbx__input   (visually hidden, keeps a11y)
+         span.cbx__box      (custom 18×18 visual box)
+         span.cbx__label-area
+       p.cbx__fieldnote
+       p.cbx__message
+
+   States driven by:
+     - .cbx__box--checked / --error / --disabled
+     - input:focus-visible → focus ring via sibling CSS
+     - :hover on label → hover tint on box wrapper
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Group wrapper ──────────────────────────────────────────── */
+.cbx-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Label row ──────────────────────────────────────────────── */
+.cbx__field {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+}
+
+.cbx-group--loading .cbx__field {
+  cursor: default;
+}
+
+/* ── Native input (hidden) ──────────────────────────────────── */
+.cbx__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Visual box wrapper (absorbs hover bg) ──────────────────── */
+.cbx__box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;   /* 18px box + 4px padding each side */
+  height: 26px;
+  border-radius: 2px;
+  /* inner box */
+  --cbx-bg:           white;
+  --cbx-border:       rgb(210, 214, 219);
+  --cbx-icon-color:   transparent;
+}
+
+/* Inner box via pseudo-element so we can style independently */
+.cbx__box::before {
+  content: '';
+  position: absolute;
+  inset: 4px;          /* 4px inset = 18×18 box */
+  border-radius: 4px;
+  border: 1px solid var(--cbx-border);
+  background: var(--cbx-bg);
+  box-sizing: border-box;
+  transition: background 0.1s, border-color 0.1s, box-shadow 0.1s;
+}
+
+/* Icon sits on top of pseudo-element */
+.cbx__icon {
+  position: relative;
+  z-index: 1;
+  color: var(--cbx-icon-color);
+  flex-shrink: 0;
+}
+
+/* ── Checked / Indeterminate ────────────────────────────────── */
+.cbx__box--checked {
+  --cbx-bg:         rgb(229, 240, 255);
+  --cbx-border:     rgb(0, 102, 255);
+  --cbx-icon-color: rgb(0, 102, 255);
+}
+
+/* ── Error ──────────────────────────────────────────────────── */
+.cbx__box--error {
+  --cbx-bg:         transparent;
+  --cbx-border:     rgb(218, 0, 0);
+}
+
+.cbx__box--error.cbx__box--checked {
+  --cbx-bg:         rgb(253, 242, 242);
+  --cbx-border:     rgb(218, 0, 0);
+  --cbx-icon-color: rgb(218, 0, 0);
+}
+
+/* ── Disabled ───────────────────────────────────────────────── */
+.cbx__box--disabled {
+  --cbx-bg:     rgb(243, 244, 246);
+  --cbx-border: rgb(210, 214, 219);
+}
+
+.cbx__box--disabled.cbx__box--checked {
+  --cbx-bg:         rgb(243, 244, 246);
+  --cbx-border:     rgb(213, 215, 218);
+  --cbx-icon-color: rgb(157, 164, 174);
+}
+
+/* ── Hover (label:hover → tint wrapper bg) ──────────────────── */
+.cbx__field:hover:not(:has(.cbx__input:disabled)) .cbx__box {
+  background: rgb(243, 244, 246);
+}
+
+/* ── Pressed ────────────────────────────────────────────────── */
+.cbx__field:active:not(:has(.cbx__input:disabled)) .cbx__box {
+  background: rgb(252, 252, 253);
+}
+
+/* ── Focus ring (real keyboard focus) ──────────────────────── */
+.cbx__input:focus-visible ~ .cbx__box::before {
+  box-shadow:
+    0 0 0 2px white,
+    0 0 0 4px rgb(0, 102, 255);
+}
+
+/* ── Forced focus (Storybook demo) ─────────────────────────── */
+.cbx__box--focused::before {
+  box-shadow:
+    0 0 0 2px white,
+    0 0 0 4px rgb(0, 102, 255);
+}
+
+/* ── Disabled cursor ────────────────────────────────────────── */
+.cbx__field:has(.cbx__input:disabled) {
+  cursor: not-allowed;
+}
+
+/* ── Label text ─────────────────────────────────────────────── */
+.cbx__label-area {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 0;
+}
+
+.cbx__label-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+}
+
+.cbx__field:hover:not(:has(.cbx__input:disabled)) .cbx__label-text {
+  color: rgb(31, 42, 55);
+}
+
+.cbx__label-text--disabled {
+  color: rgb(157, 164, 174);
+}
+
+.cbx__notation {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(102, 101, 101);
+}
+
+/* ── Fieldnote ──────────────────────────────────────────────── */
+.cbx__fieldnote {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(63, 63, 63);
+  margin: 0;
+  padding-left: 36px; /* 26px box + 4px gap + 6px optical */
+}
+
+/* ── Warning / Error messages ───────────────────────────────── */
+.cbx__message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding-left: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.cbx__message--warning {
+  color: rgb(17, 25, 39);
+}
+
+.cbx__message--error {
+  color: rgb(218, 0, 0);
+}
+
+/* ── Loading skeleton ───────────────────────────────────────── */
+.cbx__skeleton {
+  display: inline-block;
+  height: 16px;
+  width: 133px;
+  border-radius: 2px;
+  background: rgb(229, 231, 235);
+}
+
+.cbx__skeleton--fieldnote {
+  width: 100px;
+  margin-top: 2px;
+  display: block;
+  background: rgb(217, 217, 217);
+}

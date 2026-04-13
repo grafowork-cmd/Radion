@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   TEXT AREA — from Figma node 1783:24802
+
+   Structure:
+     .ta-group
+       .ta__label-row          (label above field)
+         .ta__label
+           .ta__label-text
+           .ta__notation
+         .ta__count
+       .ta__field              (bordered multi-line box)
+         .ta__inner-header     (large only: label inside top)
+         .ta__content
+           .ta__textarea
+           .ta__icon
+         .ta__resize-handle    (decorative corner lines)
+         .ta__focus-outline    (absolute blue ring)
+       .ta__fieldnote
+       .ta__message
+
+   Sizes:  --medium, --large
+   States: default, hover, focus, filled, disabled,
+           error, warning, read-only
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Group wrapper ──────────────────────────────────────────── */
+.ta-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  max-width: 365px;
+  box-sizing: border-box;
+}
+
+/* ── Label row ──────────────────────────────────────────────── */
+.ta__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ta__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  cursor: default;
+}
+
+.ta__label-text {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+}
+
+.ta__label-row--disabled .ta__label-text {
+  color: rgb(157, 164, 174);
+}
+
+.ta__notation {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(108, 114, 126);
+}
+
+.ta__label-row--disabled .ta__notation {
+  color: rgb(157, 164, 174);
+}
+
+.ta__count {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(102, 101, 101);
+}
+
+/* ── Field box ──────────────────────────────────────────────── */
+.ta__field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 160px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid rgb(210, 214, 219);
+  background: white;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.1s, background 0.1s;
+}
+
+.ta__field--large {
+  border-radius: 12px;
+}
+
+/* ── State variants ─────────────────────────────────────────── */
+.ta__field--hover {
+  background: rgb(243, 244, 246);
+  border-color: rgb(31, 42, 55);
+}
+
+.ta__field--focus,
+.ta__field--focused {
+  background: white;
+  border: 1px solid rgb(210, 214, 219); /* real border hidden behind focus outline */
+}
+
+.ta__field--filled {
+  background: white;
+  border-color: rgb(108, 114, 126);
+}
+
+.ta__field--disabled {
+  background: rgb(229, 231, 235);
+  border-color: rgb(210, 214, 219);
+}
+
+.ta__field--error {
+  background: white;
+  border: 2px solid rgb(229, 0, 0);
+}
+
+.ta__field--warning {
+  background: white;
+  border-color: rgb(108, 114, 126);
+}
+
+.ta__field--read-only {
+  background: rgb(249, 250, 251);
+  border-color: rgb(229, 231, 235);
+}
+
+/* ── Inner header (large: label inside field) ───────────────── */
+.ta__inner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 0;
+  flex-shrink: 0;
+}
+
+.ta__inner-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.ta__label-text--inner {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+}
+
+.ta__inner-header--disabled .ta__label-text--inner,
+.ta__inner-header--disabled .ta__notation {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Content (textarea + icon) ──────────────────────────────── */
+.ta__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ta__field--large .ta__content {
+  padding: 6px 16px;
+}
+
+/* ── Textarea ───────────────────────────────────────────────── */
+.ta__textarea {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;        /* visual resize via handle, not native */
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.ta__textarea::placeholder {
+  color: rgb(108, 114, 126);
+}
+
+.ta__textarea:disabled {
+  color: rgb(157, 164, 174);
+  cursor: not-allowed;
+}
+
+.ta__textarea[readonly] {
+  cursor: default;
+}
+
+/* ── Right icon ─────────────────────────────────────────────── */
+.ta__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: rgb(77, 87, 97);
+}
+
+/* ── Resize handle (bottom-right decorative lines) ──────────── */
+.ta__resize-handle {
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  /* Two diagonal lines mimicking the native resize grip */
+  background-image:
+    linear-gradient(135deg, transparent 40%, rgb(200, 204, 210) 40%, rgb(200, 204, 210) 50%, transparent 50%),
+    linear-gradient(135deg, transparent 60%, rgb(200, 204, 210) 60%, rgb(200, 204, 210) 70%, transparent 70%);
+}
+
+.ta__field--error   .ta__resize-handle { opacity: 0.5; }
+.ta__field--warning .ta__resize-handle { opacity: 0.8; }
+
+/* ── Focus outline overlay ──────────────────────────────────── */
+.ta__focus-outline {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgb(0, 102, 255);
+  pointer-events: none;
+}
+
+.ta__focus-outline--medium { border-radius: 8px; }
+.ta__focus-outline--large  { border-radius: 12px; }
+
+/* ── Fieldnote ──────────────────────────────────────────────── */
+.ta__fieldnote {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(63, 63, 63);
+  margin: 0;
+}
+
+.ta__fieldnote--disabled {
+  color: rgb(170, 170, 170);
+}
+
+/* ── Messages ───────────────────────────────────────────────── */
+.ta__message {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+}
+
+.ta__message--error   { color: rgb(218, 0, 0); }
+.ta__message--warning { color: rgb(77, 87, 97); }

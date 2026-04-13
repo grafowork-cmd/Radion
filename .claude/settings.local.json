@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python3)",
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(echo \"EXIT:$?\")",
+      "Read(//Users/suleimanyusuf/.claude/**)",
+      "Read(//Users/suleimanyusuf/.config/claude/**)",
+      "Bash(python3 -m json.tool)",
+      "Bash(python3 -c ':*)",
+      "Bash(npx vite:*)",
+      "Bash(npx storybook:*)",
+      "Bash(node -e \"const icons = require\\('lucide-react'\\); const entries = Object.entries\\(icons\\); console.log\\('total:', entries.length\\); const sample = entries.slice\\(0,3\\).map\\(\\([k,v]\\) => \\({name: k, type: typeof v, hasDisplay: !!\\(v && v.displayName\\), proto: v && Object.getPrototypeOf\\(v\\)?.name}\\)\\); console.log\\(JSON.stringify\\(sample, null, 2\\)\\);\")",
+      "Bash(node -e \"const icons = require\\('lucide-react'\\); const entries = Object.entries\\(icons\\); const nonIcons = entries.filter\\(\\([,v]\\) => typeof v !== 'object' || !v.displayName\\).slice\\(0,5\\); console.log\\('non-icons:', JSON.stringify\\(nonIcons.map\\(\\([k,v]\\) => \\({k, type: typeof v}\\)\\)\\)\\);\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); content=d[0]['text']; obj=json.loads\\(content\\); lines=obj['content'].split\\('\\\\n'\\); print\\('\\\\n'.join\\(lines[:80]\\)\\)\")",
+      "Bash(python3 -)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(list\\(d.get\\('mcpServers',{}\\).items\\(\\)\\)[:3], indent=2\\)\\)\")",
+      "Bash(curl -s --max-time 10 -N -H 'Accept: text/event-stream' 'https://mcp.unframer.co/mcp?id=8e7407312b8a7843892bad5729024a96d32ad60a564ce149d835e21dc275bf0a&secret=OFpfK6VR0DB2omFSqduklJrQFJuz20i6')",
+      "Bash(curl -s -X POST 'https://mcp.unframer.co/mcp?id=8e7407312b8a7843892bad5729024a96d32ad60a564ce149d835e21dc275bf0a&secret=OFpfK6VR0DB2omFSqduklJrQFJuz20i6' -H 'Content-Type: application/json' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"claude\",\"version\":\"1.0\"}}}')",
+      "Bash(curl -s -X POST 'https://mcp.unframer.co/mcp?id=8e7407312b8a7843892bad5729024a96d32ad60a564ce149d835e21dc275bf0a&secret=OFpfK6VR0DB2omFSqduklJrQFJuz20i6' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"claude\",\"version\":\"1.0\"}}}')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['params']['arguments']['content'][:100]\\)\")"
+    ]
+  }
+}

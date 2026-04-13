@@ -1,0 +1,549 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   PROGRESS STEPPER
+   Figma nodes: 3963-103172 (Node) · 3963-103310 (LabelText)
+                3963-102341 (Stepper) · 3963-103055 (Group)
+
+   Atoms:
+     .psn              StepNode circle indicator
+     .psl              StepLabelText
+
+   Parent (.pss):
+     .pss--lined       thin 2px connector lines through node center
+     .pss--step        bold 4px bar at top/left edge
+     .pss--boxed       card boxes with 20px connector stubs
+
+     .pss--horizontal  steps laid out in a row
+     .pss--vertical    steps stacked in a column
+
+     .pss--lg/md/sm    size variants
+   ───────────────────────────────────────────────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP NODE  (.psn)
+   ═══════════════════════════════════════════════════════════════ */
+
+.psn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ── Dot indicator ──────────────────────────────────────────── */
+
+.psn--dot {
+  background: rgb(249, 250, 251);
+  border: 2px solid rgb(229, 231, 235);
+}
+
+.psn__inner-dot {
+  border-radius: 50%;
+  background: rgb(209, 213, 219);
+  flex-shrink: 0;
+}
+
+/* Size: inactive/disabled inner dot */
+.psn--lg .psn__inner-dot { width: 8px;  height: 8px;  }
+.psn--md .psn__inner-dot { width: 7px;  height: 7px;  }
+.psn--sm .psn__inner-dot { width: 6px;  height: 6px;  }
+
+/* Active dot */
+.psn--active.psn--dot {
+  background: white;
+  border-color: rgb(0, 102, 255);
+  box-shadow: 0 0 0 2px white, 0 0 0 6px rgba(225, 225, 254, 0.7);
+}
+
+.psn--active.psn--dot .psn__inner-dot {
+  background: rgb(0, 102, 255);
+}
+
+.psn--active.psn--dot.psn--lg .psn__inner-dot { width: 14px; height: 14px; }
+.psn--active.psn--dot.psn--md .psn__inner-dot { width: 12px; height: 12px; }
+.psn--active.psn--dot.psn--sm .psn__inner-dot { width: 10px; height: 10px; }
+
+/* Completed dot */
+.psn--completed.psn--dot {
+  background: rgb(0, 102, 255);
+  border-color: rgb(0, 102, 255);
+}
+
+.psn--completed.psn--dot .psn__icon {
+  color: white;
+}
+
+/* Destructive dot */
+.psn--destructive.psn--dot {
+  background: rgb(218, 0, 0);
+  border-color: rgb(218, 0, 0);
+}
+
+.psn--destructive.psn--dot .psn__icon {
+  color: white;
+}
+
+/* Disabled dot */
+.psn--disabled.psn--dot {
+  background: rgb(249, 250, 251);
+  border: 2px dashed rgb(210, 214, 219);
+}
+
+.psn--disabled.psn--dot .psn__inner-dot {
+  opacity: 0.4;
+}
+
+/* ── Number indicator ───────────────────────────────────────── */
+
+.psn--number {
+  background: rgb(249, 250, 251);
+  border: 2px solid rgb(229, 231, 235);
+}
+
+.psn__number {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(108, 114, 126);
+}
+
+.psn--sm.psn--number .psn__number {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.psn--active.psn--number {
+  background: white;
+  border-color: rgb(0, 102, 255);
+  box-shadow: 0 0 0 2px white, 0 0 0 6px rgba(225, 225, 254, 0.7);
+}
+
+.psn--active.psn--number .psn__number {
+  color: rgb(0, 102, 255);
+}
+
+.psn--completed.psn--number {
+  background: rgb(0, 102, 255);
+  border-color: rgb(0, 102, 255);
+}
+
+.psn--completed.psn--number .psn__number {
+  color: white;
+}
+
+.psn--destructive.psn--number {
+  background: rgb(218, 0, 0);
+  border-color: rgb(218, 0, 0);
+}
+
+.psn--destructive.psn--number .psn__number {
+  color: white;
+}
+
+.psn--disabled.psn--number {
+  background: rgb(249, 250, 251);
+  border: 2px dashed rgb(210, 214, 219);
+}
+
+.psn--disabled.psn--number .psn__number {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Icon indicator ─────────────────────────────────────────── */
+
+.psn--icon {
+  background: rgb(249, 250, 251);
+  border: 2px solid rgb(229, 231, 235);
+}
+
+.psn--active.psn--icon {
+  background: white;
+  border-color: rgb(0, 102, 255);
+  box-shadow: 0 0 0 2px white, 0 0 0 6px rgba(225, 225, 254, 0.7);
+}
+
+.psn--completed.psn--icon {
+  background: rgb(0, 102, 255);
+  border-color: rgb(0, 102, 255);
+}
+
+.psn--destructive.psn--icon {
+  background: rgb(218, 0, 0);
+  border-color: rgb(218, 0, 0);
+}
+
+.psn--disabled.psn--icon {
+  background: rgb(249, 250, 251);
+  border: 2px dashed rgb(210, 214, 219);
+}
+
+/* Icon placeholder (grey square, matches Figma placeholder) */
+.psn__icon-placeholder {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: rgba(17, 24, 39, 0.2);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP LABEL TEXT  (.psl)
+   ═══════════════════════════════════════════════════════════════ */
+
+.psl {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.psl__label {
+  font-weight: 500;
+  color: rgb(17, 25, 39);
+  margin: 0;
+}
+
+.psl__description {
+  font-weight: 400;
+  color: rgb(108, 114, 126);
+  margin: 0;
+}
+
+/* Sizes */
+.psl--lg .psl__label        { font-size: 16px; line-height: 18px; }
+.psl--lg .psl__description  { font-size: 14px; line-height: 16px; }
+.psl--md .psl__label        { font-size: 14px; line-height: 16px; }
+.psl--md .psl__description  { font-size: 14px; line-height: 16px; }
+.psl--sm .psl__label        { font-size: 12px; line-height: 14px; }
+.psl--sm .psl__description  { font-size: 12px; line-height: 14px; }
+
+/* Disabled text */
+.psl--disabled .psl__label       { color: rgb(157, 164, 174); }
+.psl--disabled .psl__description { color: rgb(209, 213, 219); }
+
+/* Blue variant — Step style active/completed */
+.psl--blue .psl__label { color: rgb(0, 102, 255); }
+
+/* ═══════════════════════════════════════════════════════════════
+   PROGRESS STEPPER GROUP  (.pss)
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss {
+  display: flex;
+  background: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ── Text alignment by layout ───────────────────────────────── */
+
+/* Lined + horizontal: center labels under node */
+.pss--lined.pss--horizontal .psl,
+.pss--boxed.pss--horizontal .psl {
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Step + horizontal: left-align (node + label inline) */
+.pss--step .psl,
+.pss--lined.pss--vertical .psl,
+.pss--boxed.pss--vertical .psl {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LINED — HORIZONTAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--lined.pss--horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.pss__step--h-lined {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+/* Progress row: hline | node | hline */
+.pss__prog-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.pss__hline {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.pss__hline-fill {
+  flex: 1;
+  height: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LINED — VERTICAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--lined.pss--vertical {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px;
+  width: fit-content;
+  min-width: 240px;
+}
+
+.pss__step--v-lined {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 72px;
+}
+
+/* Progress column: vline | node | vline */
+.pss__prog-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.pss__vline {
+  flex: 1 0 0;
+  display: flex;
+  justify-content: center;
+  min-height: 4px;
+}
+
+.pss__vline-fill {
+  width: 2px;
+  height: 100%;
+}
+
+/* Text column */
+.pss__text-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+/* Size: min-height */
+.pss--md .pss__step--v-lined { min-height: 64px; }
+.pss--sm .pss__step--v-lined { min-height: 56px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP — HORIZONTAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--step.pss--horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+}
+
+.pss__step--h-step {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+/* Horizontal bar: full width, 4px tall */
+.pss__step-bar {
+  height: 4px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Node + label inline */
+.pss__step-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STEP — VERTICAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--step.pss--vertical {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px;
+  width: fit-content;
+  min-width: 240px;
+}
+
+.pss__step--v-step {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 80px;
+}
+
+/* Vertical bar: 4px wide, full height of the step row.
+   Override the horizontal bar's height: 4px so it can stretch. */
+.pss__step-bar--v {
+  width: 4px;
+  height: auto;        /* un-pin the 4px from .pss__step-bar  */
+  align-self: stretch; /* fill the parent row's full height    */
+  flex-shrink: 0;
+}
+
+/* Content fills remaining width */
+.pss__step--v-step .pss__step-content {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  align-items: center;
+}
+
+/* Size: min-height */
+.pss--md .pss__step--v-step { min-height: 72px; }
+.pss--sm .pss__step--v-step { min-height: 64px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   BOXED — HORIZONTAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--boxed.pss--horizontal {
+  flex-direction: row;
+  align-items: stretch;
+  padding: 16px;
+}
+
+.pss__step--h-boxed {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 0;
+}
+
+/* 20px connector stub */
+.pss__box-hline {
+  width: 20px;
+  height: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.pss__box-hline .pss__hline-fill {
+  width: 100%;
+  height: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOXED — VERTICAL
+   ═══════════════════════════════════════════════════════════════ */
+
+.pss--boxed.pss--vertical {
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  /* Shrink to the card's natural width instead of filling the container */
+  width: fit-content;
+  min-width: 240px;
+}
+
+.pss__step--v-boxed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* 18px connector stub */
+.pss__box-vline {
+  width: 2px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.pss__box-vline .pss__vline-fill {
+  width: 2px;
+  height: 100%;
+}
+
+/* ── Card (.pss__card) ──────────────────────────────────────── */
+
+.pss__card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.pss__card--completed {
+  background: white;
+  border: 2px solid rgb(0, 102, 255);
+}
+
+.pss__card--active {
+  background: rgb(229, 240, 255);
+  border: 2px solid rgb(0, 102, 255);
+}
+
+.pss__card--inactive {
+  background: white;
+  border: 2px solid rgb(229, 231, 235);
+}
+
+.pss__card--destructive {
+  background: rgb(254, 242, 242);
+  border: 2px solid rgb(218, 0, 0);
+}
+
+.pss__card--disabled {
+  background: white;
+  border: 2px dashed rgb(229, 231, 235);
+}
+
+/* Icon slot at top of boxed card */
+.pss__card-icon-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Size: gap adjustments */
+.pss--md .pss__step--h-lined { gap: 8px;  }
+.pss--sm .pss__step--h-lined { gap: 6px;  }
+.pss--md .pss__step-content  { gap: 12px; }
+.pss--sm .pss__step-content  { gap: 10px; }

@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   TOOLTIP — from Figma node 1838:16801
+
+   Structure:
+     .tt                  outer wrapper (filter: drop-shadow)
+       .tt__arrow-row     top/bottom arrow row (full width)
+         .tt__arrow       CSS triangle
+       .tt__arrow-side    left/right arrow wrapper
+         .tt__arrow       CSS triangle
+       .tt__body          white box (border-radius 8px)
+         -- type=default:
+         .tt__label
+         -- type=dual-text:
+         .tt__dual
+           .tt__dual-col--left / --right
+             .tt__label
+         -- type=comprehensive:
+         .tt__comprehensive
+           .tt__title
+           .tt__content
+           .tt__action-btn
+
+   Arrow dimensions:
+     top/bottom: 16px wide, 8px tall
+     left/right: 8px wide, 16px tall
+
+   Shadow: drop-shadow(0 0 12px rgba(119,119,119,0.24))
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Outer wrapper ──────────────────────────────────────────── */
+.tt {
+  display: inline-flex;
+  position: relative;
+  /* drop-shadow covers arrow + body together */
+  filter: drop-shadow(0 0 12px rgba(119, 119, 119, 0.24));
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.tt--vertical   { flex-direction: column; }
+.tt--horizontal { flex-direction: row; align-items: flex-start; }
+
+/* Left/right arrows need vertical centering */
+.tt--left.tt--horizontal  { align-items: center; }
+.tt--right.tt--horizontal { align-items: center; }
+
+/* ── Body box ───────────────────────────────────────────────── */
+.tt__body {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Width by type */
+.tt--default .tt__body     { width: 91px; }
+.tt--dual-text .tt__body   { width: 182px; padding: 0; }
+.tt--comprehensive .tt__body { width: 248px; }
+
+/* Wider body for left/right comprehensive */
+.tt--left.tt--comprehensive .tt__body,
+.tt--right.tt--comprehensive .tt__body { width: 256px; }
+
+/* ── Default: label ─────────────────────────────────────────── */
+.tt__label {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* ── Dual Text: two columns ─────────────────────────────────── */
+.tt__dual {
+  display: flex;
+  width: 100%;
+}
+
+.tt__dual-col {
+  width: 91px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.tt__dual-col--left {
+  border-right: 1px solid rgb(243, 244, 246);
+  border-radius: 8px 0 0 8px;
+}
+
+.tt__dual-col--right {
+  border-radius: 0 8px 8px 0;
+}
+
+/* ── Comprehensive ──────────────────────────────────────────── */
+.tt__comprehensive {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.tt__title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: rgb(17, 25, 39);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.tt__content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tt__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(56, 66, 80);
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.tt__action-btn:hover {
+  background: rgb(249, 250, 251);
+}
+
+/* ── Arrow rows (top / bottom) ──────────────────────────────── */
+.tt__arrow-row {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.tt__arrow-row--top    { height: 8px; align-items: flex-end; }
+.tt__arrow-row--bottom { height: 8px; align-items: flex-start; }
+
+/* Horizontal alignment */
+.tt__arrow-row--left   { justify-content: flex-start; padding-left: 16px; }
+.tt__arrow-row--middle { justify-content: center; }
+.tt__arrow-row--right  { justify-content: flex-end; padding-right: 16px; }
+
+/* ── Arrow side wrappers (left / right) ─────────────────────── */
+.tt__arrow-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 8px;
+}
+
+/* ── CSS triangle shapes ────────────────────────────────────── */
+
+/* ▲ pointing UP — appears at TOP of tooltip body */
+.tt__arrow--top {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+  flex-shrink: 0;
+}
+
+/* ▼ pointing DOWN — appears at BOTTOM of tooltip body */
+.tt__arrow--bottom {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+  flex-shrink: 0;
+}
+
+/* ◀ pointing LEFT — appears at LEFT side of tooltip body */
+.tt__arrow--left-side {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid white;
+  flex-shrink: 0;
+}
+
+/* ▶ pointing RIGHT — appears at RIGHT side of tooltip body */
+.tt__arrow--right-side {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid white;
+  flex-shrink: 0;
+}

@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDER — from Figma nodes 2485:21330 / 2484:6453 / 2459:19717
+
+   Layout: [Left Side 129px] [Track area flex-1] [Right Side 129px]
+   Types:  website (12px track, 32px thumb)
+           mobile  (8px track,  24px thumb)
+   States: default / error / disabled
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Root wrapper ───────────────────────────────────────────── */
+/* padding-bottom reserves space for the absolutely-positioned
+   side labels (14px line-height + 4px gap = 18px) */
+.slider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+/* ── Side column (placeholder + label) ─────────────────────── */
+/* Label is absolutely positioned below the pill so it doesn't
+   affect the column height — this keeps the pill center-aligned
+   with the track bar via the root's align-items: center. */
+.slider__side {
+  flex-shrink: 0;
+  width: 129px;
+  position: relative;
+}
+
+/* ── Placeholder pill ───────────────────────────────────────── */
+.slider__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px 10px 16px;
+  height: 32px;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px dashed rgb(17, 25, 39);
+  background: rgb(229, 231, 235);
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.slider__placeholder--error {
+  background: rgb(253, 242, 242);
+  border-color: rgb(229, 0, 0);
+}
+
+.slider__placeholder--disabled {
+  background: rgb(229, 231, 235);
+  border-color: rgb(157, 164, 174);
+}
+
+.slider__placeholder-text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+}
+
+.slider__placeholder--error .slider__placeholder-text {
+  color: rgb(218, 0, 0);
+}
+
+.slider__placeholder--disabled .slider__placeholder-text {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Side label (below placeholder, absolutely positioned) ─── */
+/* Sits 4px below the placeholder pill without affecting height */
+.slider__side-label {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+  color: rgb(77, 87, 97);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.slider__side-label--disabled {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Track area (center flex-1) ─────────────────────────────── */
+.slider__track-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Slider name ────────────────────────────────────────────── */
+.slider__name {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(77, 87, 97);
+  white-space: nowrap;
+}
+
+.slider__name--disabled {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Rail + input wrapper ───────────────────────────────────── */
+.slider__rail-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Wrapper + input height = handle size so thumb stays centered */
+.slider--handle-x-small .slider__rail-wrapper,
+.slider--handle-x-small .slider__input { height: 16px; }
+
+.slider--handle-small .slider__rail-wrapper,
+.slider--handle-small .slider__input { height: 24px; }
+
+.slider--handle-medium .slider__rail-wrapper,
+.slider--handle-medium .slider__input { height: 32px; }
+
+.slider--handle-large .slider__rail-wrapper,
+.slider--handle-large .slider__input { height: 40px; }
+
+/* ── Visual track ───────────────────────────────────────────── */
+.slider__rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 9px;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(0, 102, 255)    0%,
+    rgb(0, 102, 255)    var(--progress, 50%),
+    rgb(204, 224, 255)  var(--progress, 50%),
+    rgb(204, 224, 255)  100%
+  );
+}
+
+.slider--website .slider__rail { height: 12px; }
+.slider--mobile  .slider__rail { height: 8px;  }
+
+/* Disabled track */
+.slider--disabled .slider__rail {
+  background: rgb(229, 231, 235);
+}
+
+/* ── Native range input ─────────────────────────────────────── */
+.slider__input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+.slider__input:disabled { cursor: not-allowed; }
+
+/* Remove default track styling */
+.slider__input::-webkit-slider-runnable-track {
+  background: transparent;
+  border: none;
+}
+.slider__input::-moz-range-track {
+  background: transparent;
+  border: none;
+}
+
+/* ── Thumb base styles (shared across all sizes) ────────────── */
+.slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border-radius: 9999px;
+  background: #fff;
+  border: 1.5px solid rgb(0, 102, 255);
+  box-shadow:
+    0 4px 6px -1px rgb(229, 231, 235),
+    0 4px 6px -1px rgb(229, 231, 235);
+  cursor: grab;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+.slider__input::-moz-range-thumb {
+  border-radius: 9999px;
+  background: #fff;
+  border: 1.5px solid rgb(0, 102, 255);
+  box-shadow:
+    0 4px 6px -1px rgb(229, 231, 235),
+    0 4px 6px -1px rgb(229, 231, 235);
+  cursor: grab;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+/* ── Thumb sizes — matching ControlHandle ───────────────────── */
+.slider--handle-x-small .slider__input::-webkit-slider-thumb { width: 16px; height: 16px; }
+.slider--handle-x-small .slider__input::-moz-range-thumb     { width: 16px; height: 16px; }
+
+.slider--handle-small .slider__input::-webkit-slider-thumb { width: 24px; height: 24px; }
+.slider--handle-small .slider__input::-moz-range-thumb     { width: 24px; height: 24px; }
+
+.slider--handle-medium .slider__input::-webkit-slider-thumb { width: 32px; height: 32px; }
+.slider--handle-medium .slider__input::-moz-range-thumb     { width: 32px; height: 32px; }
+
+.slider--handle-large .slider__input::-webkit-slider-thumb { width: 40px; height: 40px; }
+.slider--handle-large .slider__input::-moz-range-thumb     { width: 40px; height: 40px; }
+
+/* ── Thumb hover ────────────────────────────────────────────── */
+.slider__input:not(:disabled):hover::-webkit-slider-thumb {
+  background: rgb(243, 244, 246);
+}
+.slider__input:not(:disabled):hover::-moz-range-thumb {
+  background: rgb(243, 244, 246);
+}
+
+/* ── Thumb active/pressed ───────────────────────────────────── */
+.slider__input:not(:disabled):active::-webkit-slider-thumb {
+  background: rgb(243, 244, 246);
+  border-color: rgb(0, 82, 204);
+  cursor: grabbing;
+}
+.slider__input:not(:disabled):active::-moz-range-thumb {
+  background: rgb(243, 244, 246);
+  border-color: rgb(0, 82, 204);
+  cursor: grabbing;
+}
+
+/* ── Thumb focus ────────────────────────────────────────────── */
+/* Via real :focus (keyboard / tap) */
+.slider__input:not(:disabled):focus::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgb(0, 102, 255);
+}
+.slider__input:not(:disabled):focus::-moz-range-thumb {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgb(0, 102, 255);
+}
+
+/* Via .slider--focused class (forced for Storybook demo) */
+.slider--focused .slider__input::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgb(0, 102, 255);
+}
+.slider--focused .slider__input::-moz-range-thumb {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgb(0, 102, 255);
+}
+
+/* ── Thumb disabled ─────────────────────────────────────────── */
+.slider__input:disabled::-webkit-slider-thumb {
+  background: rgb(229, 231, 235);
+  border-color: rgb(157, 164, 174);
+  cursor: not-allowed;
+}
+.slider__input:disabled::-moz-range-thumb {
+  background: rgb(229, 231, 235);
+  border-color: rgb(157, 164, 174);
+  cursor: not-allowed;
+}
+
+/* ── Footer row ─────────────────────────────────────────────── */
+.slider__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.slider__footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+
+.slider__footer > .slider__value {
+  flex-shrink: 0;
+}
+
+/* ── Value labels ───────────────────────────────────────────── */
+.slider__value {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(77, 87, 97);
+  min-width: 34px;
+  text-align: center;
+}
+
+.slider__value--disabled {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Error row ──────────────────────────────────────────────── */
+.slider__error-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  color: rgb(218, 0, 0);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.slider__warning-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.slider__error-text {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  color: rgb(218, 0, 0);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

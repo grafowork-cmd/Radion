@@ -1,0 +1,154 @@
+/* =============================================================================
+   BREADCRUMB — pixel-perfect from Figma nodes 8673:44517 · 8673:44595 · 8673:44534 · 8671:45241
+
+   Types:       default (text links) | icon (home icon + text links)
+   Styles:      link | box | outlined | filled
+   Indicators:  chevron | slash | dot | arrow
+
+   Tokens:
+     Space/3XS = 4px (gap between items)
+     Space/XS  = 8px (box padding)
+     Radius/XS = 4px (item border-radius)
+     Radius/S  = 8px (box border-radius)
+   ============================================================================= */
+
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.bc-root {
+  display: inline-flex;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Box style: white card container */
+.bc-root--box {
+  background: white;
+  border: 1px solid #d2d6db;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* ── List ──────────────────────────────────────────────────────────────────── */
+
+.bc-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+/* ── Item (shared) ─────────────────────────────────────────────────────────── */
+
+.bc-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+
+.bc-item--icon {
+  padding: 2px;
+}
+
+.bc-item-text {
+  line-height: 20px;
+}
+
+/* ── Item states ───────────────────────────────────────────────────────────── */
+
+.bc-item--default {
+  color: #4d5761;
+}
+
+.bc-item--hover {
+  color: #0052cc;
+}
+
+.bc-item--active {
+  color: #003d99;
+  cursor: default;
+  pointer-events: none;
+}
+
+.bc-item--disabled {
+  color: #6c727e;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Outlined style ─────────────────────────────────────────────────────────── */
+
+.bc-item--outlined {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.bc-item--outlined.bc-item--hover {
+  border-color: #cce0ff;
+}
+
+.bc-item--outlined-active {
+  border-color: #0066ff !important;
+}
+
+/* ── Filled style ───────────────────────────────────────────────────────────── */
+
+.bc-item--filled {
+  background: #f3f4f6;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.bc-item--filled.bc-item--hover {
+  background: #e5e7eb;
+}
+
+.bc-item--filled-active {
+  background: #e5f0ff !important;
+}
+
+/* ── Separator ──────────────────────────────────────────────────────────────── */
+
+.bc-sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #9da4ae;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.bc-sep--slash {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.bc-sep--dot {
+  /* dot is 6×6 centered in 20×20 */
+}
+
+.bc-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9da4ae;
+}

@@ -1,0 +1,115 @@
+/* =============================================================================
+   PROGRESS BAR — pixel-perfect from Figma nodes 8498:1553 (base) & 8498:1878 (main)
+
+   Sizes:
+     large   — 16px track height
+     medium  — 12px track height
+     small   —  8px track height
+
+   Positions:
+     top     — label + % above bar, description below
+     center  — label above, % inline right of bar, description below
+     bottom  — bar first, label + % below, description below
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.pb-root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Track (background bar) ──────────────────────────────────────────────────── */
+
+.pb-track {
+  position: relative;
+  width: 100%;
+  background: #e5e7eb;   /* background-quaternary = Neutral200 */
+  border-radius: 100px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.pb-track--large  { height: 16px; }
+.pb-track--medium { height: 12px; }
+.pb-track--small  { height: 8px; }
+
+/* ── Fill ─────────────────────────────────────────────────────────────────── */
+
+.pb-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #0052cc;   /* foreground-brand-primary = Brand600 */
+  border-radius: 8px;
+  transition: width 0.3s ease;
+  min-width: 0;
+}
+
+/* ── Header row (label + percentage) ──────────────────────────────────────── */
+
+.pb-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+
+/* ── Bar row (bar + inline percentage for center position) ─────────────────── */
+
+.pb-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.pb-bar-row .pb-track {
+  flex: 1 0 0;
+}
+
+/* ── Label ────────────────────────────────────────────────────────────────── */
+
+.pb-label {
+  flex: 1 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #384250;        /* text-secondary = Neutral700 */
+  min-width: 0;
+}
+
+/* ── Percentage ───────────────────────────────────────────────────────────── */
+
+.pb-pct {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #384250;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Description ──────────────────────────────────────────────────────────── */
+
+.pb-description {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pb-desc-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6c727e;        /* text-quaternary = Neutral500 */
+}

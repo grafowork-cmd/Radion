@@ -1,0 +1,241 @@
+/* =============================================================================
+   MODAL — pixel-perfect from Figma nodes 8692:44701
+
+   Types:      default | checklist | dropdown | form | media | slot
+   Alignment:  horizontal (460px) | vertical (375px)
+
+   Tokens:
+     Space/XS  = 8px   Space/M   = 12px  Space/XL = 24px
+     Space/2XL = 32px
+     Radius/S  = 8px   Radius/L  = 16px  Radius/Circle = 50%
+   ============================================================================= */
+
+/* ── Overlay ─────────────────────────────────────────────────────────────────── */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+/* ── Modal card ──────────────────────────────────────────────────────────────── */
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.modal--horizontal {
+  width: 460px;
+  padding: 24px;
+  align-items: flex-end;
+  box-shadow: 0px 12px 40px 0px rgba(16, 24, 40, 0.12),
+              0px 4px 6px 0px rgba(16, 24, 40, 0.05);
+}
+
+.modal--vertical {
+  width: 375px;
+  padding: 24px;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0px 12px 40px 0px rgba(16, 24, 40, 0.12),
+              0px 4px 6px 0px rgba(16, 24, 40, 0.05);
+}
+
+/* Media type: no padding on root, overflow clips image corners */
+.modal--media {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────────── */
+
+.modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.modal__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Icon badge ──────────────────────────────────────────────────────────────── */
+
+.modal__icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e5f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #0066ff;
+}
+
+/* ── Close button ────────────────────────────────────────────────────────────── */
+
+.modal__close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4d5761;
+  flex-shrink: 0;
+  padding: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.modal__close:hover {
+  background: #f3f4f6;
+  color: #111927;
+}
+
+/* ── Text ────────────────────────────────────────────────────────────────────── */
+
+.modal__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal__text--centered {
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.modal__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #111927;
+  white-space: nowrap;
+}
+
+.modal__description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #4d5761;
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────────────── */
+
+.modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.modal__actions--vertical {
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.modal__actions--vertical .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Checklist ───────────────────────────────────────────────────────────────── */
+
+.modal__checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+/* ── Form ────────────────────────────────────────────────────────────────────── */
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ── Slot ────────────────────────────────────────────────────────────────────── */
+
+.modal__slot {
+  width: 100%;
+  height: 180px;
+  border: 1.5px dashed #b3c4ff;
+  border-radius: 8px;
+  background: #e5f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.modal__slot-placeholder {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #003d99;
+  text-align: center;
+}
+
+/* ── Media ───────────────────────────────────────────────────────────────────── */
+
+.modal__media-image {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(to bottom, #3d4a6b, #1c2438);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal--vertical .modal__media-image {
+  height: 200px;
+}
+
+.modal__media-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__media-body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px;
+  align-items: flex-end;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal__media-body--vertical {
+  align-items: center;
+}

@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   CONTROL HANDLE — from Figma node 2459:19717
+   A draggable circular thumb atom used in sliders.
+
+   Sizes:   x-small=16px / small=24px / medium=32px / large=40px
+   States:  default / hover / pressed / disabled
+   Medium + Large show a bolt icon inside.
+   Pressed state shows a floating tooltip above.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Wrapper (stacks handle + value label vertically) ───────── */
+.chandle__wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  /* Top padding reserves visual space for the tooltip so it
+     doesn't get clipped when the handle sits inside a parent */
+  padding-top: 52px;
+}
+
+/* ── Base handle ─────────────────────────────────────────────── */
+/* position: relative so the tooltip can anchor to it */
+.chandle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.5px solid;
+  cursor: pointer;
+  outline: none;
+  flex-shrink: 0;
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+  position: relative;
+  /* Allow tooltip overflow above without clipping */
+  overflow: visible;
+}
+
+.chandle:focus { outline: none; }
+
+/* ── Sizes ───────────────────────────────────────────────────── */
+.chandle--x-small { width: 16px;  height: 16px; }
+.chandle--small   { width: 24px;  height: 24px; }
+.chandle--medium  { width: 32px;  height: 32px; }
+.chandle--large   { width: 40px;  height: 40px; }
+
+/* ── Icon container ──────────────────────────────────────────── */
+.chandle__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STATES
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Default ─────────────────────────────────────────────────── */
+.chandle--default {
+  background: #fff;
+  border-color: rgb(0, 102, 255);
+  box-shadow:
+    0 4px 6px -1px rgb(229, 231, 235),
+    0 4px 6px -1px rgb(229, 231, 235);
+  color: rgb(0, 102, 255);
+}
+
+/* ── Hover ───────────────────────────────────────────────────── */
+.chandle--hover,
+.chandle--default:hover:not(:disabled) {
+  background: rgb(243, 244, 246);
+  border-color: rgb(0, 102, 255);
+  box-shadow:
+    0 4px 6px -1px rgb(229, 231, 235),
+    0 4px 6px -1px rgb(229, 231, 235);
+  color: rgb(0, 102, 255);
+  cursor: pointer;
+}
+
+/* ── Pressed ─────────────────────────────────────────────────── */
+.chandle--pressed,
+.chandle--default:active:not(:disabled) {
+  background: rgb(243, 244, 246);
+  border-color: rgb(0, 82, 204);
+  box-shadow: none;
+  color: rgb(0, 82, 204);
+  cursor: grabbing;
+}
+
+/* ── Disabled ────────────────────────────────────────────────── */
+.chandle--disabled,
+.chandle:disabled {
+  background: rgb(229, 231, 235);
+  border-color: rgb(157, 164, 174);
+  box-shadow:
+    0 4px 6px -1px rgb(229, 231, 235),
+    0 4px 6px -1px rgb(229, 231, 235);
+  color: rgb(157, 164, 174);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VALUE LABEL
+   ═══════════════════════════════════════════════════════════ */
+.chandle__value {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.chandle__value--disabled {
+  color: rgb(157, 164, 174);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TOOLTIP  (shown when state === "pressed")
+   Two-column card + downward caret, floats above the handle.
+   ═══════════════════════════════════════════════════════════ */
+.chandle__tooltip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* filter drop-shadow covers both the card and the caret arrow */
+  filter: drop-shadow(0 0 12px rgba(119, 119, 119, 0.24));
+  /* anchored to the handle circle via position: relative on .chandle */
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* The two-column label area */
+.chandle__tooltip-labels {
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Each column cell */
+.chandle__tooltip-cell {
+  width: 91px;
+  padding: 8px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+  background: #fff;
+  white-space: nowrap;
+}
+
+/* Divider between columns */
+.chandle__tooltip-cell--left {
+  border-right: 1px solid rgb(243, 244, 246);
+  border-radius: 8px 0 0 8px;
+}
+
+.chandle__tooltip-cell--right {
+  border-radius: 0 8px 8px 0;
+}
+
+/* Arrow container — centered below the label box */
+.chandle__tooltip-arrow-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Downward-pointing triangle using clip-path on a white div */
+.chandle__tooltip-arrow {
+  width: 16px;
+  height: 8px;
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}

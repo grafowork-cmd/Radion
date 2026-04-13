@@ -1,0 +1,383 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   DROPDOWN — from Figma nodes 1764:2330, 1770:14182,
+              1771:14107, 1774:14590
+
+   Structure:
+     .dd-group
+       .dd__label          (standard label row — above trigger)
+       .dd__wrap           (relative position container)
+         .dd__trigger      (button or div acting as trigger)
+           .dd__value      (selected text or placeholder)
+           .dd__chevron    (chevron icon)
+           -- float variant adds:
+           .dd__float-label (label inside trigger, floats up)
+           .dd__float-value (value text below label)
+           .dd__icon-cluster (.dd__clear + .dd__divider + chevron)
+         .dd__menu         (dropdown panel, absolute)
+           .dd__item*      (list items)
+           -- multi: CheckboxGroup items
+           -- typehead: .dd__search-wrap + .dd__search-list
+       .dd__fieldnote
+       .dd__message
+
+   Size modifiers: --small, --medium, --large
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Group wrapper ──────────────────────────────────────────── */
+.dd-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-width: 220px;
+}
+
+.dd-group--small  { min-width: 180px; }
+.dd-group--medium { min-width: 220px; }
+.dd-group--large  { min-width: 260px; }
+
+/* ── Label ──────────────────────────────────────────────────── */
+.dd__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  cursor: default;
+}
+
+.dd__label-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+}
+
+.dd__notation {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgb(102, 101, 101);
+}
+
+/* ── Wrap (relative anchor for menu) ───────────────────────── */
+.dd__wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Trigger — standard (above-label style) ─────────────────  */
+.dd__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  cursor: pointer;
+  gap: 8px;
+  box-sizing: border-box;
+  transition: background 0.1s, border-color 0.1s;
+  outline: none;
+  text-align: left;
+}
+
+/* Sizes */
+.dd__trigger--small  { height: 32px; padding: 0 10px; border-radius: 6px; }
+.dd__trigger--medium { height: 40px; padding: 0 12px; border-radius: 8px; }
+.dd__trigger--large  { height: 48px; padding: 0 16px; border-radius: 8px; }
+
+/* Open */
+.dd__trigger--open {
+  background: rgb(229, 231, 235);
+  border-color: rgb(157, 164, 174);
+}
+
+/* Hover */
+.dd__trigger:hover:not(.dd__trigger--disabled):not(.dd__trigger--open) {
+  background: rgb(249, 250, 251);
+  border-color: rgb(157, 164, 174);
+}
+
+/* Focus */
+.dd__trigger:focus-visible {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(0, 102, 255);
+}
+
+/* Error */
+.dd__trigger--error { border-color: rgb(218, 0, 0); }
+/* Warning */
+.dd__trigger--warning { border-color: rgb(232, 116, 0); }
+/* Disabled */
+.dd__trigger--disabled {
+  background: rgb(243, 244, 246);
+  border-color: rgb(210, 214, 219);
+  cursor: not-allowed;
+  color: rgb(157, 164, 174);
+}
+
+/* ── Value text ─────────────────────────────────────────────── */
+.dd__value {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dd__value--placeholder {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Chevron ────────────────────────────────────────────────── */
+.dd__chevron {
+  flex-shrink: 0;
+  color: rgb(77, 87, 97);
+  transition: transform 0.15s;
+}
+
+.dd__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* ── Trigger — float variant (label inside) ─────────────────  */
+.dd__trigger--float {
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 12px;
+  border-color: rgb(210, 214, 219);
+}
+
+.dd__trigger--float.dd__trigger--open,
+.dd__trigger--float.dd__trigger--has-value {
+  border-color: rgb(17, 25, 39);
+  background: white;
+}
+
+.dd__trigger--float:hover:not(.dd__trigger--disabled) {
+  border-color: rgb(17, 25, 39);
+  background: white;
+}
+
+/* Float label (the label text sitting inside the trigger) */
+.dd__float-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(157, 164, 174);
+  pointer-events: none;
+  transition: top 0.12s, font-size 0.12s, color 0.12s, transform 0.12s;
+  white-space: nowrap;
+}
+
+.dd__float-label--up {
+  top: 10px;
+  transform: none;
+  font-size: 11px;
+  line-height: 14px;
+  color: rgb(77, 87, 97);
+}
+
+/* Float value (shows selected value below the floated label) */
+.dd__float-value {
+  flex: 1;
+  padding-left: 16px;
+  padding-top: 14px;  /* push down below the floated label */
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: 24px;
+}
+
+/* ── Icon cluster (clear + divider + chevron) ───────────────── */
+.dd__icon-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.dd__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: rgb(77, 87, 97);
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.dd__clear:hover {
+  color: rgb(17, 25, 39);
+  background: rgb(229, 231, 235);
+}
+
+.dd__divider {
+  display: block;
+  width: 1px;
+  height: 16px;
+  background: rgb(210, 214, 219);
+  flex-shrink: 0;
+}
+
+/* ── Menu panel ─────────────────────────────────────────────── */
+.dd__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(119, 119, 119, 0.24);
+  overflow: hidden;
+  max-height: 320px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.dd__menu--multi {
+  padding: 4px 0;
+}
+
+/* ── Menu item — standard ───────────────────────────────────── */
+.dd__item {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(17, 25, 39);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.08s;
+  list-style: none;
+}
+
+.dd__item--small  { height: 32px; font-size: 14px; }
+.dd__item--medium { height: 36px; }
+.dd__item--large  { height: 48px; padding: 0 16px; }
+
+.dd__item:hover:not(.dd__item--disabled):not(.dd__item--empty) {
+  background: rgb(243, 244, 246);
+}
+
+.dd__item--selected {
+  color: rgb(0, 102, 255);
+  font-weight: 500;
+}
+
+.dd__item--selected:hover {
+  background: rgb(229, 240, 255);
+}
+
+.dd__item--disabled {
+  color: rgb(157, 164, 174);
+  cursor: not-allowed;
+}
+
+.dd__item--empty {
+  color: rgb(157, 164, 174);
+  cursor: default;
+  font-size: 14px;
+}
+
+/* ── Checkbox menu item ─────────────────────────────────────── */
+.dd__item--checkbox {
+  height: auto;
+  min-height: 48px;
+  padding: 8px 16px;
+  align-items: center;
+}
+
+.dd__item--checkbox .cbx-group {
+  pointer-events: none;
+  width: 100%;
+}
+
+/* ── Search (Typehead) ──────────────────────────────────────── */
+.dd__search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgb(229, 231, 235);
+}
+
+.dd__search-icon {
+  color: rgb(157, 164, 174);
+  flex-shrink: 0;
+}
+
+.dd__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: rgb(17, 25, 39);
+  background: transparent;
+}
+
+.dd__search-input::placeholder {
+  color: rgb(157, 164, 174);
+}
+
+.dd__search-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  max-height: 256px;
+}
+
+/* ── Fieldnote ──────────────────────────────────────────────── */
+.dd__fieldnote {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(63, 63, 63);
+  margin: 0;
+}
+
+/* ── Error / Warning messages ───────────────────────────────── */
+.dd__message {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+}
+
+.dd__message--error   { color: rgb(218, 0, 0); }
+.dd__message--warning { color: rgb(232, 116, 0); }
+
+/* ── Loading skeleton ───────────────────────────────────────── */
+.dd__skeleton {
+  display: inline-block;
+  height: 14px;
+  border-radius: 2px;
+  background: rgb(229, 231, 235);
+  vertical-align: middle;
+}

@@ -1,0 +1,93 @@
+/* ─────────────────────────────────────────────────────────────
+   BUTTON GROUP — from Figma node 1615:2117
+   A horizontal strip of connected buttons sharing borders.
+   Position (leading / middle / trailing) is auto-detected via
+   CSS :first-child / :last-child — no prop needed.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Wrapper ───────────────────────────────────────────────── */
+.bgrp {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+/* ── Item base ─────────────────────────────────────────────── */
+.bgrp__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: rgb(56, 66, 80);
+  background: #fff;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  position: relative;
+  z-index: 0;
+  transition: background 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+
+/* Collapse shared borders between items */
+.bgrp__item + .bgrp__item { margin-left: -1px; }
+
+/* ── Sizes ─────────────────────────────────────────────────── */
+.bgrp--large  .bgrp__item { height: 48px; padding: 12px 16px; }
+.bgrp--medium .bgrp__item { height: 40px; padding: 8px 16px; }
+.bgrp--small  .bgrp__item { height: 32px; padding: 4px 16px; }
+
+/* ── Shapes — auto-detected from DOM position ──────────────── */
+.bgrp__item:first-child  { border-radius: 8px 0 0 8px; }
+.bgrp__item:last-child   { border-radius: 0 8px 8px 0; }
+.bgrp__item:only-child   { border-radius: 8px; }
+
+/* ── States ────────────────────────────────────────────────── */
+.bgrp__item:hover:not(:disabled) {
+  background: rgb(249, 250, 251);
+  z-index: 1;
+}
+
+.bgrp__item:focus:not(:disabled) {
+  background: #fff;
+  border-color: rgb(203, 209, 220);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0, 102, 255);
+  z-index: 2;
+}
+
+.bgrp__item:active:not(:disabled) {
+  background: rgb(229, 240, 255);
+  border-color: rgb(204, 224, 255);
+  z-index: 1;
+  box-shadow: none;
+}
+
+.bgrp__item:disabled {
+  background: transparent;
+  border-color: rgb(210, 214, 219);
+  color: rgb(157, 164, 174);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Icon & label ──────────────────────────────────────────── */
+.bgrp__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bgrp--large  .bgrp__icon { width: 24px; height: 24px; }
+.bgrp--medium .bgrp__icon { width: 20px; height: 20px; }
+.bgrp--small  .bgrp__icon { width: 16px; height: 16px; }
+
+.bgrp__label {
+  display: flex;
+  align-items: center;
+}

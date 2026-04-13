@@ -1,0 +1,94 @@
+/* ─────────────────────────────────────────────────────────────
+   ICON BUTTON — from Figma node 1490:7271
+   Types:  primary / secondary / default / symbol
+   Sizes:  small=32px / medium=40px / large=48px
+   Shapes: square (rounded corners) / round (pill)
+   Destructive modifier: red palette on primary, secondary, symbol
+   ───────────────────────────────────────────────────────────── */
+
+.ibtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  flex-shrink: 0;
+  transition: background 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+
+.ibtn:focus { outline: none; }
+
+/* ── Sizes ─────────────────────────────────────────────────── */
+.ibtn--small  { width: 32px; height: 32px; padding: 8px; }
+.ibtn--medium { width: 40px; height: 40px; padding: 10px; }
+.ibtn--large  { width: 48px; height: 48px; padding: 12px; }
+
+/* ── Icon container ────────────────────────────────────────── */
+.ibtn__icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ibtn--small  .ibtn__icon { width: 16px; height: 16px; }
+.ibtn--medium .ibtn__icon { width: 20px; height: 20px; }
+.ibtn--large  .ibtn__icon { width: 24px; height: 24px; }
+
+/* ── Shapes ────────────────────────────────────────────────── */
+.ibtn--square.ibtn--small  { border-radius: 8px; }
+.ibtn--square.ibtn--medium { border-radius: 10px; }
+.ibtn--square.ibtn--large  { border-radius: 12px; }
+.ibtn--round               { border-radius: 999px; }
+
+/* ═══════════════════════════════════════════════════════════
+   NON-DESTRUCTIVE VARIANTS
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Primary ───────────────────────────────────────────────── */
+.ibtn--primary { background: rgb(0,102,255); color: #fff; }
+.ibtn--primary:hover:not(:disabled)         { background: rgb(0,82,204); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.ibtn--primary:focus:not(:disabled) { background: rgb(0,102,255); box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.ibtn--primary:active:not(:disabled)        { background: rgb(0,61,153); box-shadow: none; }
+.ibtn--primary:disabled                     { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); cursor: not-allowed; pointer-events: none; }
+
+/* ── Secondary ─────────────────────────────────────────────── */
+.ibtn--secondary { background: rgb(229,240,255); border: 1px solid rgb(153,194,255); color: rgb(0,82,204); }
+.ibtn--secondary:hover:not(:disabled)         { background: rgb(204,224,255); border-color: rgb(102,163,255); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.ibtn--secondary:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.ibtn--secondary:active:not(:disabled)        { background: rgb(153,194,255); box-shadow: none; }
+.ibtn--secondary:disabled                     { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); cursor: not-allowed; pointer-events: none; }
+
+/* ── Default ───────────────────────────────────────────────── */
+.ibtn--default { background: #fff; border: 1px solid rgb(210,214,219); color: rgb(56,66,80); }
+.ibtn--default:hover:not(:disabled)         { background: rgb(249,250,251); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.ibtn--default:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.ibtn--default:active:not(:disabled)        { background: rgb(243,244,246); box-shadow: none; }
+.ibtn--default:disabled                     { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); cursor: not-allowed; pointer-events: none; }
+
+/* ── Symbol (ghost) ────────────────────────────────────────── */
+.ibtn--symbol { background: transparent; border: none; color: rgb(56,66,80); }
+.ibtn--symbol:hover:not(:disabled)         { background: rgb(249,250,251); }
+.ibtn--symbol:focus:not(:disabled) { background: #fff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.ibtn--symbol:active:not(:disabled)        { background: rgb(243,244,246); box-shadow: none; }
+.ibtn--symbol:disabled                     { color: rgb(157,164,174); cursor: not-allowed; pointer-events: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   DESTRUCTIVE MODIFIER
+   ═══════════════════════════════════════════════════════════ */
+
+/* Primary destructive */
+.ibtn--primary.ibtn--destructive { background: rgb(229,0,0); color: #fff; border: none; }
+.ibtn--primary.ibtn--destructive:hover:not(:disabled)         { background: rgb(195,0,0); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.ibtn--primary.ibtn--destructive:focus:not(:disabled) { background: rgb(229,0,0); box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.ibtn--primary.ibtn--destructive:active:not(:disabled)        { background: rgb(169,0,0); box-shadow: none; }
+.ibtn--primary.ibtn--destructive:disabled                     { background: rgb(253,242,242); border: 1px solid rgb(250,231,231); color: rgb(241,172,172); }
+
+/* Secondary destructive */
+.ibtn--secondary.ibtn--destructive { background: #fff; border: 1px solid rgb(241,172,172); color: rgb(218,0,0); }
+.ibtn--secondary.ibtn--destructive:hover:not(:disabled)         { background: rgb(253,242,242); border-color: rgb(241,172,172); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.ibtn--secondary.ibtn--destructive:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.ibtn--secondary.ibtn--destructive:active:not(:disabled)        { background: rgb(250,231,231); box-shadow: none; }
+.ibtn--secondary.ibtn--destructive:disabled                     { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); }
+
+/* Symbol destructive */
+.ibtn--symbol.ibtn--destructive { background: transparent; color: rgb(218,0,0); }
+.ibtn--symbol.ibtn--destructive:hover:not(:disabled)         { background: rgb(253,242,242); }
+.ibtn--symbol.ibtn--destructive:focus:not(:disabled) { background: #fff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.ibtn--symbol.ibtn--destructive:active:not(:disabled)        { background: rgb(250,231,231); box-shadow: none; }
+.ibtn--symbol.ibtn--destructive:disabled                     { color: rgb(241,172,172); }

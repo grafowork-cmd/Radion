@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   TEXT INPUT — from Figma node 1788:17083
+
+   Structure:
+     .inp-group
+       .inp__label-row        (small/medium: label above field)
+         .inp__label
+           .inp__label-text
+           .inp__notation
+         .inp__count
+       .inp__field            (the bordered box)
+         .inp__inner-label-row (large only: label inside field)
+         .inp__input-row
+           .inp__input        (<input> element)
+           .inp__state-icon   (error icon)
+           .inp__icon         (custom right icon)
+       .inp__fieldnote
+       .inp__message
+
+   Sizes:  --small (32px), --medium (40px), --large (48px)
+   States: default, hover, focus, filled, disabled,
+           error, warning, read-only
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Group wrapper ──────────────────────────────────────────── */
+.inp-group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  width: 100%;
+  max-width: 365px;
+  box-sizing: border-box;
+}
+
+/* ── External label row ─────────────────────────────────────── */
+.inp__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inp__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  cursor: default;
+}
+
+.inp__label-text {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+}
+
+.inp__label-row--disabled .inp__label-text {
+  color: rgb(157, 164, 174);
+}
+
+.inp__notation {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(108, 114, 126);
+}
+
+.inp__label-row--disabled .inp__notation {
+  color: rgb(157, 164, 174);
+}
+
+.inp__count {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(102, 101, 101);
+}
+
+/* ── Field box ──────────────────────────────────────────────── */
+.inp__field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  transition: border-color 0.1s, background 0.1s, box-shadow 0.1s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heights */
+.inp__field--small  { height: 32px; }
+.inp__field--medium { height: 40px; }
+.inp__field--large  { height: 48px; border-radius: 12px; }
+
+/* ── States ─────────────────────────────────────────────────── */
+.inp__field--hover {
+  background: rgb(243, 244, 246);
+  border-color: rgb(31, 42, 55);
+}
+
+.inp__field--focus,
+.inp__field--focused {
+  background: white;
+  border: 2px solid rgb(0, 102, 255);
+}
+
+.inp__field--filled {
+  background: white;
+  border-color: rgb(108, 114, 126);
+}
+
+.inp__field--disabled {
+  background: rgb(229, 231, 235);
+  border-color: rgb(210, 214, 219);
+}
+
+.inp__field--error {
+  background: white;
+  border: 2px solid rgb(229, 0, 0);
+}
+
+.inp__field--warning {
+  background: white;
+  border-color: rgb(108, 114, 126);
+}
+
+.inp__field--read-only {
+  background: rgb(249, 250, 251);
+  border-color: rgb(229, 231, 235);
+}
+
+/* ── Inner label row (large only) ───────────────────────────── */
+.inp__inner-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 16px 0;
+  flex-shrink: 0;
+}
+
+.inp__inner-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.inp__label-text--inner {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+}
+
+.inp__inner-label-row--disabled .inp__label-text--inner,
+.inp__inner-label-row--disabled .inp__notation {
+  color: rgb(157, 164, 174);
+}
+
+/* ── Input row ──────────────────────────────────────────────── */
+.inp__input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.inp__field--large .inp__input-row {
+  padding: 0 16px;
+}
+
+/* ── Native input ───────────────────────────────────────────── */
+.inp__input {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.inp__input::placeholder {
+  color: rgb(108, 114, 126);
+}
+
+.inp__input:disabled {
+  color: rgb(157, 164, 174);
+  cursor: not-allowed;
+}
+
+.inp__input[readonly] {
+  cursor: default;
+}
+
+/* ── State icon (error) ─────────────────────────────────────── */
+.inp__state-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.inp__state-icon--error { color: rgb(229, 0, 0); }
+
+/* ── Right icon ─────────────────────────────────────────────── */
+.inp__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: rgb(77, 87, 97);
+}
+
+/* ── Fieldnote ──────────────────────────────────────────────── */
+.inp__fieldnote {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: rgb(63, 63, 63);
+  margin: 0;
+}
+
+.inp__fieldnote--disabled {
+  color: rgb(170, 170, 170);
+}
+
+/* ── Messages ───────────────────────────────────────────────── */
+.inp__message {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+}
+
+.inp__message--error   { color: rgb(218, 0, 0); }
+.inp__message--warning { color: rgb(77, 87, 97); }

@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   PAGINATION — from Figma node 3294:25410
+
+   Structure:
+     .pgn                  outer bar
+       -- web:
+       .pgn__details       left side (rows + showing)
+         .pgn__rows-wrap   rows-per-page control
+           .pgn__rows-label
+           .pgn__rows-select
+             .pgn__rows-value
+             .pgn__rows-chevron
+             .pgn__rows-menu (dropdown)
+               .pgn__rows-option
+         .pgn__showing
+       .pgn__controls      right side (prev + pages + next)
+         .pgn__nav-btn
+         .pgn__pages
+           .pgn__page-btn
+         .pgn__nav-btn
+       -- mobile-items: prev + showing + next
+       -- mobile-pages: prev + input + total + next
+         .pgn__page-input-wrap
+           .pgn__page-input
+           .pgn__page-total
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Outer bar ──────────────────────────────────────────────── */
+.pgn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.pgn--web          { width: 100%; min-width: 720px; }
+.pgn--mobile-items { width: 320px; }
+.pgn--mobile-pages { width: 320px; }
+
+/* ── Left details (web) ─────────────────────────────────────── */
+.pgn__details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Rows per page ──────────────────────────────────────────── */
+.pgn__rows-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.pgn__rows-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+}
+
+.pgn__rows-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 132px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+  gap: 8px;
+  position: relative;
+  user-select: none;
+}
+
+.pgn__rows-select--open {
+  border-color: rgb(157, 164, 174);
+  background: rgb(249, 250, 251);
+}
+
+.pgn__rows-select:hover:not(.pgn__rows-select--open) {
+  border-color: rgb(157, 164, 174);
+}
+
+.pgn__rows-value {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  flex: 1;
+}
+
+.pgn__rows-chevron {
+  color: rgb(77, 87, 97);
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+
+.pgn__rows-chevron--open {
+  transform: rotate(180deg);
+}
+
+.pgn__rows-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(119, 119, 119, 0.24);
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  z-index: 100;
+}
+
+.pgn__rows-option {
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+  cursor: pointer;
+}
+
+.pgn__rows-option:hover {
+  background: rgb(243, 244, 246);
+}
+
+.pgn__rows-option--selected {
+  color: rgb(0, 102, 255);
+  font-weight: 500;
+}
+
+/* ── Showing results text ────────────────────────────────────  */
+.pgn__showing {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+}
+
+.pgn__showing strong {
+  font-weight: 600;
+}
+
+.pgn__showing--mobile {
+  padding: 8px;
+}
+
+/* ── Right controls (web) ───────────────────────────────────── */
+.pgn__controls {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ── Page numbers list ──────────────────────────────────────── */
+.pgn__pages {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+}
+
+/* ── Page button ────────────────────────────────────────────── */
+.pgn__page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 8px 10px;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 4px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgb(56, 66, 80);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+
+.pgn__page-btn:hover:not(.pgn__page-btn--active):not(.pgn__page-btn--disabled):not(.pgn__page-btn--ellipsis) {
+  background: rgb(243, 244, 246);
+  border-color: rgb(157, 164, 174);
+}
+
+/* Active page */
+.pgn__page-btn--active {
+  background: rgb(229, 240, 255);
+  border-color: rgb(0, 102, 255);
+  color: rgb(0, 102, 255);
+  font-weight: 400;
+  cursor: default;
+}
+
+/* Ellipsis */
+.pgn__page-btn--ellipsis {
+  border: none;
+  background: transparent;
+  cursor: default;
+  color: rgb(56, 66, 80);
+  width: auto;
+}
+
+/* Disabled */
+.pgn__page-btn--disabled {
+  color: rgb(157, 164, 174);
+  border-color: rgb(229, 231, 235);
+  cursor: not-allowed;
+}
+
+/* ── Nav button (prev/next) ─────────────────────────────────── */
+.pgn__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  color: rgb(56, 66, 80);
+  transition: background 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+}
+
+.pgn__nav-btn:hover:not(.pgn__nav-btn--disabled) {
+  background: rgb(243, 244, 246);
+  border-color: rgb(157, 164, 174);
+}
+
+.pgn__nav-btn--disabled {
+  color: rgb(210, 214, 219);
+  border-color: rgb(229, 231, 235);
+  cursor: not-allowed;
+}
+
+/* ── Mobile pages input ─────────────────────────────────────── */
+.pgn__page-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+}
+
+.pgn__page-input {
+  width: 68px;
+  height: 32px;
+  padding: 4px 12px;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 8px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.pgn__page-input:focus {
+  border-color: rgb(0, 102, 255);
+  box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(0, 102, 255);
+}
+
+.pgn__page-total {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+}

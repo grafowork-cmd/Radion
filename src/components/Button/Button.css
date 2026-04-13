@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   BUTTON — pixel-perfect from Figma node 3:23956
+   
+   Key insight from Figma: "Destructive" is a compatibility prop,
+   not a variant. Every variant (primary, secondary, outlined etc.)
+   can be made destructive (red). The .btn--destructive modifier
+   overrides the base variant colors.
+   
+   Disabled states:
+   - Non-destructive: opacity 0.5 on base color (grey look)
+   - Destructive:     special light red palette, NOT grey
+     bg=#fdf2f2  border=#fae7e7  text=#f1acac
+   ───────────────────────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: background 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+
+.btn:focus { outline: none; }
+
+/* ── Sizes ─────────────────────────────────────────────────── */
+.btn--large  { height: 48px; padding: 8px 16px; font-size: 16px; line-height: 24px; border-radius: 12px; }
+.btn--medium { height: 40px; padding: 8px 14px; font-size: 14px; line-height: 20px; border-radius: 10px; }
+.btn--small  { height: 32px; padding: 8px 16px; font-size: 12px; line-height: 16px; border-radius: 8px;  }
+
+/* ── NON-DESTRUCTIVE VARIANTS ──────────────────────────────── */
+
+.btn--primary { background: rgb(0,102,255); color: #fff; }
+.btn--primary:hover:not(:disabled)        { background: rgb(0,82,204); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--primary:focus:not(:disabled) { background: rgb(0,102,255); box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--primary:active:not(:disabled)       { background: rgb(0,61,153); box-shadow: none; }
+.btn--primary:disabled                    { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+.btn--secondary { background: rgb(229,240,255); color: rgb(0,82,204); border: 1px solid rgb(153,194,255); }
+.btn--secondary:hover:not(:disabled)        { background: rgb(204,224,255); border-color: rgb(102,163,255); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--secondary:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--secondary:active:not(:disabled)       { background: rgb(153,194,255); box-shadow: none; }
+.btn--secondary:disabled                    { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+.btn--outlined { background: #fff; color: rgb(17,25,39); border: 1px solid rgb(210,214,219); }
+.btn--outlined:hover:not(:disabled)        { background: rgb(249,250,251); border-color: rgb(157,164,174); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--outlined:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--outlined:active:not(:disabled)       { background: rgb(243,244,246); box-shadow: none; }
+.btn--outlined:disabled                    { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+.btn--text { background: transparent; color: rgb(77,87,97); }
+.btn--text:hover:not(:disabled)        { background: rgb(249,250,251); }
+.btn--text:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--text:active:not(:disabled)       { background: rgb(243,244,246); }
+.btn--text:disabled                    { background: transparent; color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+.btn--text-secondary { background: transparent; color: rgb(0,102,255); }
+.btn--text-secondary:hover:not(:disabled)        { background: rgb(229,240,255); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--text-secondary:focus:not(:disabled) { background: #fff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--text-secondary:active:not(:disabled)       { background: rgb(229,240,255); box-shadow: none; }
+.btn--text-secondary:disabled                    { background: transparent; color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+.btn--default { background: #fff; color: rgb(56,66,80); border: 1px solid rgb(210,214,219); }
+.btn--default:hover:not(:disabled)        { background: rgb(249,250,251); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--default:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(0,102,255); }
+.btn--default:active:not(:disabled)       { background: rgb(243,244,246); box-shadow: none; }
+.btn--default:disabled                    { background: rgb(229,231,235); border: 1px solid rgb(210,214,219); color: rgb(157,164,174); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* ── DESTRUCTIVE MODIFIER ──────────────────────────────────────
+   Overrides ANY variant with red colors.
+   bg=#e50000 (exact Figma token: button-primary-error-bg)
+   
+   Destructive disabled is SPECIAL — not grey, stays red-tinted:
+   bg=#fdf2f2  border=1px #fae7e7  text=#f1acac
+   ──────────────────────────────────────────────────────────── */
+
+/* Primary destructive */
+.btn--primary.btn--destructive { background: rgb(229,0,0); color: #fff; border: none; }
+.btn--primary.btn--destructive:hover:not(:disabled)        { background: rgb(195,0,0); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--primary.btn--destructive:focus:not(:disabled) { background: rgb(229,0,0); box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.btn--primary.btn--destructive:active:not(:disabled)       { background: rgb(169,0,0); box-shadow: none; }
+.btn--primary.btn--destructive:disabled                    { background: rgb(253,242,242); border: 1px solid rgb(250,231,231); color: rgb(241,172,172); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* Secondary destructive */
+.btn--secondary.btn--destructive { background: rgb(253,242,242); color: rgb(218,0,0); border: 1px solid rgb(250,231,231); }
+.btn--secondary.btn--destructive:hover:not(:disabled)        { background: rgb(250,231,231); border-color: rgb(241,172,172); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--secondary.btn--destructive:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.btn--secondary.btn--destructive:disabled                    { background: rgb(253,242,242); border: 1px solid rgb(250,231,231); color: rgb(241,172,172); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* Outlined destructive */
+.btn--outlined.btn--destructive { background: #fff; color: rgb(218,0,0); border: 1px solid rgb(246,203,203); }
+.btn--outlined.btn--destructive:hover:not(:disabled)        { background: rgb(253,242,242); border-color: rgb(241,172,172); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--outlined.btn--destructive:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.btn--outlined.btn--destructive:disabled                    { background: rgb(253,242,242); border: 1px solid rgb(250,231,231); color: rgb(241,172,172); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* Text destructive */
+.btn--text.btn--destructive { background: transparent; color: rgb(218,0,0); border: none; }
+.btn--text.btn--destructive:hover:not(:disabled)        { background: rgb(253,242,242); }
+.btn--text.btn--destructive:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.btn--text.btn--destructive:disabled                    { color: rgb(241,172,172); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* Default destructive */
+.btn--default.btn--destructive { background: #fff; color: rgb(218,0,0); border: 1px solid rgb(246,203,203); }
+.btn--default.btn--destructive:hover:not(:disabled)        { background: rgb(253,242,242); box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1); }
+.btn--default.btn--destructive:focus:not(:disabled) { box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgb(229,0,0); }
+.btn--default.btn--destructive:disabled                    { background: rgb(253,242,242); border: 1px solid rgb(250,231,231); color: rgb(241,172,172); opacity: 1; cursor: not-allowed; pointer-events: none; }
+
+/* ── Icon ──────────────────────────────────────────────────── */
+.btn__icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.btn--large  .btn__icon { width: 24px; height: 24px; }
+.btn--medium .btn__icon { width: 20px; height: 20px; }
+.btn--small  .btn__icon { width: 16px; height: 16px; }

@@ -1,0 +1,549 @@
+/* =============================================================================
+   FILE UPLOAD — pixel-perfect from Figma nodes 8683:44628 (Prompt) · 8685:44648 (Upload State)
+
+   Prompt types:  drop-drag | browse-files | drag-or-browse
+   Prompt states: default | hovered | focused | disabled
+
+   Item styles:   blanked | lined | outlined
+   Item states:   uploading | uploaded | error
+
+   Tokens:
+     Space/3XS = 4px  Space/XS = 8px  Space/M = 12px  Space/L = 16px
+     Space/XL = 24px  Space/2XL = 32px
+     Radius/XS = 4px  Radius/S = 8px
+   ============================================================================= */
+
+/* ── Shared base ─────────────────────────────────────────────────────────────── */
+
+.fu-prompt,
+.fu-item {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PROMPT
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.fu-prompt {
+  width: 100%;
+  padding: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+
+/* Hidden file input */
+.fu-prompt__input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+/* ── Drop and Drag ──────────────────────────────────────────────────────────── */
+
+.fu-prompt--drop-drag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background: white;
+}
+
+.fu-prompt--drop-drag.fu-prompt--hovered {
+  background: #f9fafb;
+}
+
+.fu-prompt--drop-drag.fu-prompt--focused {
+  border: 1.5px solid #0066ff;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+  outline: none;
+}
+
+.fu-prompt--drop-drag.fu-prompt--disabled {
+  background: #f9fafb;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Browse Files ───────────────────────────────────────────────────────────── */
+
+.fu-prompt--browse-files {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: default;
+}
+
+.fu-prompt--browse-files.fu-prompt--hovered {
+  background: #f9fafb;
+}
+
+.fu-prompt--browse-files.fu-prompt--focused {
+  border: 1.5px solid #0066ff;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+}
+
+.fu-prompt--browse-files.fu-prompt--disabled {
+  background: #f9fafb;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ── Drag or Browse ─────────────────────────────────────────────────────────── */
+
+.fu-prompt--drag-or-browse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border: 1.5px dashed #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  cursor: default;
+}
+
+.fu-prompt--drag-or-browse.fu-prompt--hovered {
+  background: #f9fafb;
+  border-color: #d2d6db;
+}
+
+.fu-prompt--drag-or-browse.fu-prompt--focused {
+  border: 1.5px dashed #0066ff;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+}
+
+.fu-prompt--drag-or-browse.fu-prompt--disabled {
+  background: #f9fafb;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Prompt internals ───────────────────────────────────────────────────────── */
+
+.fu-prompt__icon {
+  color: #4d5761;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.fu-prompt--focused .fu-prompt__icon {
+  color: #0066ff;
+}
+
+.fu-prompt--disabled .fu-prompt__icon {
+  color: #9da4ae;
+}
+
+.fu-prompt__icon--lg {
+  color: #4d5761;
+}
+
+.fu-prompt__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fu-prompt__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fu-prompt__content--centered {
+  align-items: center;
+  text-align: center;
+}
+
+.fu-prompt__title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #111927;
+  white-space: nowrap;
+}
+
+.fu-prompt--disabled .fu-prompt__title {
+  color: #6c727e;
+}
+
+.fu-prompt__title--brand {
+  font-weight: 600;
+  color: #003d99;
+}
+
+.fu-prompt--disabled .fu-prompt__title--brand {
+  color: #f3f4f6;
+}
+
+.fu-prompt__hint {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #4d5761;
+  white-space: nowrap;
+}
+
+.fu-prompt--disabled .fu-prompt__hint {
+  color: #9da4ae;
+}
+
+.fu-prompt__upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.fu-prompt__or {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #111927;
+  white-space: nowrap;
+}
+
+.fu-prompt--disabled .fu-prompt__or {
+  color: #e5e7eb;
+}
+
+/* Browse Files button */
+.fu-prompt__browse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #0066ff;
+  border: 1px solid #0066ff;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.fu-prompt__browse-btn:hover {
+  background: #0052cc;
+  border-color: #0052cc;
+}
+
+.fu-prompt__browse-btn:disabled {
+  background: #9da4ae;
+  border-color: #9da4ae;
+  color: #e5f0ff;
+  cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UPLOAD ITEM
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.fu-item {
+  width: 320px;
+  background: white;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Blanked ────────────────────────────────────────────────────────────────── */
+
+.fu-item--blanked {
+  padding: 12px;
+}
+
+.fu-item__row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.fu-item__row--lined {
+  gap: 8px;
+  padding: 12px;
+}
+
+.fu-item__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Small file icon (blanked) */
+.fu-item__file-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5f0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #0052cc;
+}
+
+.fu-item__file-icon--error {
+  background: #fdf2f2;
+  color: #da0000;
+}
+
+/* Large file icon (lined/outlined) */
+.fu-item__file-icon-lg {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #66a3ff;
+}
+
+.fu-item__file-icon-lg--uploaded {
+  color: #009231;
+}
+
+.fu-item__file-icon-lg--error {
+  color: #da0000;
+}
+
+.fu-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fu-item__info--grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.fu-item__name {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #111927;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fu-item__name--lg {
+  font-size: 16px;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
+.fu-item__meta {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #4d5761;
+  white-space: nowrap;
+}
+
+.fu-item__error-text {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #da0000;
+  white-space: nowrap;
+}
+
+.fu-item__error-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fu-item__error-icon {
+  color: #da0000;
+  flex-shrink: 0;
+}
+
+.fu-item__status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fu-item__status-text {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #4d5761;
+  white-space: nowrap;
+}
+
+.fu-item__pct {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #111927;
+}
+
+.fu-item__pct--lg {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+/* ── Progress bars ──────────────────────────────────────────────────────────── */
+
+/* Small (8px, blanked) */
+.fu-item__progress-bar--sm {
+  height: 8px;
+  width: 180px;
+  border-radius: 8px;
+  background: #e5e7eb;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Thick (12px, outlined) */
+.fu-item__progress-bar--thick {
+  height: 12px;
+  width: 196px;
+  border-radius: 8px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.fu-item__progress-fill {
+  height: 100%;
+  background: #0066ff;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.fu-item__progress-fill--success {
+  background: #009231;
+}
+
+/* Linear (8px, full-width, lined) */
+.fu-item__linear-track {
+  height: 8px;
+  width: 100%;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+
+.fu-item__linear-fill {
+  height: 8px;
+  background: #66a3ff;
+  transition: width 0.3s ease;
+}
+
+.fu-item__linear-fill--success {
+  background: #009231;
+}
+
+/* ── Action buttons ─────────────────────────────────────────────────────────── */
+
+.fu-item__action {
+  flex-shrink: 0;
+}
+
+.fu-item__action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  color: #4d5761;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.fu-item__action-btn:hover {
+  background: #f3f4f6;
+}
+
+.fu-item__action-btn--error {
+  color: #da0000;
+}
+
+.fu-item__action-btn--error:hover {
+  background: #fdf2f2;
+}
+
+.fu-item__check-icon {
+  color: #009231;
+  flex-shrink: 0;
+}
+
+/* ── Lined ──────────────────────────────────────────────────────────────────── */
+
+.fu-item--lined {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Outlined ───────────────────────────────────────────────────────────────── */
+
+.fu-item--outlined {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.fu-item__progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.fu-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fu-item__bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

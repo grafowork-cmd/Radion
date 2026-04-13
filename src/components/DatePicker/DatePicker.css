@@ -1,0 +1,416 @@
+/* =============================================================================
+   DATE PICKER — pixel-perfect from Figma nodes 8623:20472 (single) & 8623:20527 (range)
+
+   Figma specs:
+     Calendar panel  — 320px wide, bg white, border #e5e7eb, radius 8px, padding 20px, gap 20px
+     Header          — 18px/600/#111927, prev/next ChevronLeft/Right 20px
+     Grid            — 280px, 7 × 40px cells
+     Day headers     — 14px/400/#111927
+     Outside month   — #9da4ae
+     Today           — #da0000
+     Selected        — bg #0052cc, white text, 32px circle
+     Range backdrop  — #e5f0ff, 4px inset top/bottom
+     Input field     — 40px height, border #e5e7eb, radius 8px, shadow XSmall
+   ============================================================================= */
+
+/* ── Root ──────────────────────────────────────────────────────────────────── */
+
+.dp-root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 320px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Range mode: root width expands to fit two inputs + calendar */
+.dp-root--range {
+  width: 320px;
+}
+
+/* ── Inputs row (range mode) ─────────────────────────────────────────────── */
+
+.dp-inputs-row {
+  display: flex;
+  gap: 19px;
+  width: 100%;
+}
+
+.dp-inputs-row .dp-input-group {
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* ── Input group ────────────────────────────────────────────────────────── */
+
+.dp-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dp-input-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #111927;
+}
+
+.dp-input-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.04);
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+.dp-input-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #9da4ae;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dp-input-text--filled {
+  color: #111927;
+}
+
+.dp-input-icon {
+  color: #6c727e;
+  flex-shrink: 0;
+}
+
+/* ── Calendar panel ─────────────────────────────────────────────────────── */
+
+.dp-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.dp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+}
+
+.dp-header-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #111927;
+  flex: 1;
+}
+
+.dp-nav-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dp-nav-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #384250;
+  padding: 0;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.dp-nav-btn:hover {
+  background: #f3f4f6;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+
+.dp-divider {
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  flex-shrink: 0;
+}
+
+/* ── Calendar grid ──────────────────────────────────────────────────────── */
+
+.dp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  width: 280px;
+}
+
+/* ── Day cells ──────────────────────────────────────────────────────────── */
+
+.dp-cell {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.dp-cell--header {
+  cursor: default;
+}
+
+.dp-cell--outside {
+  cursor: default;
+}
+
+/* Cell inner — the visible circle/text */
+.dp-cell-inner {
+  position: relative;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #111927;
+  border-radius: 50%;
+  transition: background 0.1s, color 0.1s;
+}
+
+/* Header row */
+.dp-cell--header .dp-cell-inner {
+  border-radius: 0;
+  cursor: default;
+}
+
+/* Outside month */
+.dp-cell--outside .dp-cell-inner {
+  color: #9da4ae;
+}
+
+/* Default hover */
+.dp-cell--default:hover .dp-cell-inner {
+  background: #f3f4f6;
+}
+
+/* Today */
+.dp-cell--today .dp-cell-inner {
+  color: #da0000;
+}
+
+.dp-cell--today:hover .dp-cell-inner {
+  background: #fef2f2;
+}
+
+/* Selected (single mode) */
+.dp-cell--selected .dp-cell-inner {
+  background: #0052cc;
+  color: white;
+}
+
+.dp-cell--selected:hover .dp-cell-inner {
+  background: #0047b3;
+}
+
+/* Range single (start = end, same cell) */
+.dp-cell--range-single .dp-cell-inner {
+  background: #0052cc;
+  color: white;
+}
+
+/* ── Range selection backdrop (::before pseudo-element) ─────────────────── */
+
+.dp-cell--range-start::before,
+.dp-cell--range-end::before,
+.dp-cell--in-range::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: #e5f0ff;
+  z-index: 0;
+}
+
+/* Backdrop extends from center to the right */
+.dp-cell--range-start::before {
+  left: 50%;
+  right: 0;
+}
+
+/* Backdrop extends from left to center */
+.dp-cell--range-end::before {
+  left: 0;
+  right: 50%;
+}
+
+/* Full-width backdrop */
+.dp-cell--in-range::before {
+  left: 0;
+  right: 0;
+}
+
+/* Range endpoints: circle on top of backdrop */
+.dp-cell--range-start .dp-cell-inner,
+.dp-cell--range-end .dp-cell-inner {
+  background: #0052cc;
+  color: white;
+}
+
+.dp-cell--range-start:hover .dp-cell-inner,
+.dp-cell--range-end:hover .dp-cell-inner {
+  background: #0047b3;
+}
+
+/* In-range cells: no circle, just backdrop */
+.dp-cell--in-range .dp-cell-inner {
+  color: #111927;
+  background: transparent;
+}
+
+.dp-cell--in-range:hover .dp-cell-inner {
+  background: rgba(0, 82, 204, 0.08);
+}
+
+/* ── Time picker ─────────────────────────────────────────────────────────── */
+
+.dp-time {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.dp-time-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dp-time-label {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #4d5761;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.dp-time-colon {
+  font-size: 14px;
+  font-weight: 400;
+  color: #384250;
+  padding-bottom: 7px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Select wrapper */
+.dp-time-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.dp-time-select {
+  appearance: none;
+  height: 28px;
+  padding: 4px 22px 4px 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #111927;
+  background: white;
+  cursor: pointer;
+  min-width: 52px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.dp-time-select:focus {
+  outline: none;
+  border-color: #0052cc;
+}
+
+.dp-time-chevron {
+  position: absolute;
+  right: 4px;
+  pointer-events: none;
+  color: #6c727e;
+  flex-shrink: 0;
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────────── */
+
+.dp-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.dp-btn {
+  flex: 1;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.04);
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.dp-btn--cancel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  color: #384250;
+}
+
+.dp-btn--cancel:hover {
+  background: #f9fafb;
+}
+
+.dp-btn--apply {
+  background: #0052cc;
+  border: 1px solid #0052cc;
+  color: white;
+}
+
+.dp-btn--apply:hover {
+  background: #0047b3;
+  border-color: #0047b3;
+}

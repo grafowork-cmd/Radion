@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ─────────────────────────────────────────────────────────────
+   TAG — from Figma node 1770:21097
+
+   Structure:
+     .tag                outer pill
+       .tag__checkbox    optional checkbox (left)
+       .tag__dot         optional colored dot (left)
+       .tag__label       text label
+       .tag__count       count badge (right, action=count)
+       .tag__close       X button (right, action=x-close)
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Outer pill ─────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: white;
+  border: 1px solid rgb(210, 214, 219);
+  border-radius: 6px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  width: fit-content;
+}
+
+/* Size variants */
+.tag--sm {
+  padding: 3px 8px;
+  gap: 4px;
+}
+
+.tag--md {
+  padding: 2px 9px;
+  gap: 5px;
+}
+
+.tag--lg {
+  padding: 4px 10px;
+  gap: 6px;
+}
+
+/* ── Label ──────────────────────────────────────────────────── */
+.tag__label {
+  font-weight: 400;
+  color: rgb(17, 25, 39);
+  white-space: nowrap;
+}
+
+.tag--sm .tag__label {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.tag--md .tag__label,
+.tag--lg .tag__label {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* ── Dot icon ───────────────────────────────────────────────── */
+.tag__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Count badge ────────────────────────────────────────────── */
+.tag__count {
+  background: rgb(243, 244, 246);
+  border-radius: 3px;
+  font-weight: 600;
+  color: rgb(17, 25, 39);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.tag--sm .tag__count {
+  font-size: 11px;
+  padding: 2px 4px;
+}
+
+.tag--md .tag__count {
+  font-size: 12px;
+  padding: 3px 5px;
+}
+
+.tag--lg .tag__count {
+  font-size: 13px;
+  padding: 3px 6px;
+}
+
+/* ── X close button ─────────────────────────────────────────── */
+.tag__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  color: rgb(77, 87, 97);
+  flex-shrink: 0;
+  border-radius: 2px;
+  transition: color 0.1s;
+}
+
+.tag__close:hover {
+  color: rgb(17, 25, 39);
+}
+
+/* ── Checkbox wrapper ───────────────────────────────────────── */
+/* Trims the 4px transparent hover-bg padding that cbx__box carries,
+   so the 18×18 visual box aligns tightly with the tag's content. */
+.tag__checkbox-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: -4px;
+}
